@@ -5,6 +5,7 @@ readysignal/readysignal.py
 readysignal.egg-info/PKG-INFO
 readysignal.egg-info/SOURCES.txt
 readysignal.egg-info/dependency_links.txt
+readysignal.egg-info/requires.txt
 readysignal.egg-info/top_level.txt
 tests/__init__.py
 tests/credentials.py
