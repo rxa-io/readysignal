@@ -40,7 +40,7 @@ def list_signals(access_token):
     return conn.json()
 
 
-def fetch_signal_details(access_token, signal_id):
+def get_signal_details(access_token, signal_id):
     """
     shows the details for a specific signal
     :param access_token: user's unique access token
@@ -51,7 +51,7 @@ def fetch_signal_details(access_token, signal_id):
     return conn.json()
 
 
-def fetch_signal(access_token, signal_id):
+def get_signal(access_token, signal_id):
     """
     returns a signal's data in json format
     :param access_token: user's unique access token
@@ -62,7 +62,7 @@ def fetch_signal(access_token, signal_id):
     return conn.json()
 
 
-def fetch_signal_pandas(access_token, signal_id):
+def get_signal_pandas(access_token, signal_id):
     """
     returns a signal's data as a Pandas DataFrame
     :param access_token: user's unique access token

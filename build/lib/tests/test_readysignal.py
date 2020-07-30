@@ -1,9 +1,9 @@
 from tests.credentials import creds
 from readysignal import list_signals
 from readysignal import connect_to_readysignal
-from readysignal import fetch_signal_details
-from readysignal import fetch_signal
-from readysignal import fetch_signal_pandas
+from readysignal import get_signal_details
+from readysignal import get_signal
+from readysignal import get_signal_pandas
 from readysignal.readysignal import ReadySignal
 from pytest import fixture
 
@@ -51,27 +51,27 @@ def test_list_signals():
     assert 'data' in signals.keys()
 
 
-def test_fetch_signal_details():
+def test_get_signal_details():
     access_token = creds['access_token']
     signal_id = creds['signal_id']
-    signal_details = fetch_signal_details(access_token, signal_id)
-    print(fetch_signal_details(access_token, signal_id).keys())
+    signal_details = get_signal_details(access_token, signal_id)
+    print(get_signal_details(access_token, signal_id).keys())
     assert isinstance(signal_details, dict)
     assert 'data' in signal_details.keys()
 
 
-def test_fetch_signal():
+def test_get_signal():
     access_token = creds['access_token']
     signal_id = creds['signal_id']
-    signal = fetch_signal(access_token, signal_id)
+    signal = get_signal(access_token, signal_id)
 
     assert isinstance(signal, dict)
     assert 'data' in signal.keys()
 
-def test_fetch_signal_pandas():
+def test_get_signal_pandas():
     access_token = creds['access_token']
     signal_id = creds['signal_id']
-    signal = fetch_signal_pandas(access_token, signal_id)
+    signal = get_signal_pandas(access_token, signal_id)
 
     assert isinstance(signal, dict)
     assert 'data' in signal.keys()
@@ -79,6 +79,6 @@ def test_fetch_signal_pandas():
 
 test_connect_to_readysignal()
 test_list_signals()
-test_fetch_signal_details()
-test_fetch_signal()
-test_fetch_signal()
+test_get_signal_details()
+test_get_signal()
+test_get_signal()
