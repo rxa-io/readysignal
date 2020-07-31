@@ -17,12 +17,12 @@ def list_signals_keys():
     return ['data', 'links', 'meta']
 
 
-def list_signals_keys():
-    """
-    keys for dicts that the api returns
-    :return: list of keys
-    """
-    return ['data', 'links', 'meta']
+# def list_signals_keys():
+#     """
+#     keys for dicts that the api returns
+#     :return: list of keys
+#     """
+#     return ['data', 'links', 'meta']
 
 
 def test_connect_to_readysignal():
@@ -43,7 +43,7 @@ def test_list_signals():
 
     :return: list of signal ids, or error
     """
-    rs_instance = ReadySignal(creds['signal_id'])
+    # rs_instance = ReadySignal(creds['signal_id'])
     access_token = creds['access_token']
     signals = list_signals(access_token)
 
@@ -78,7 +78,7 @@ def test_get_signal_pandas():
 
 
 test_connect_to_readysignal()
-test_list_signals()
+# test_list_signals()
 test_get_signal_details()
 test_get_signal()
 test_get_signal()
