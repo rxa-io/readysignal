@@ -3,7 +3,7 @@
 ## Installation
 
 ```shell script
-python -m pip install {path to directory}/dist/readysignal-0.1-py3-none-any.whl
+python -m pip install {path to directory}/dist/readysignal-0.2-py3-none-any.whl
 ```
 
 ```shell script
