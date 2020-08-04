@@ -4,25 +4,6 @@ from readysignal import connect_to_readysignal
 from readysignal import get_signal_details
 from readysignal import get_signal
 from readysignal import get_signal_pandas
-from readysignal.readysignal import ReadySignal
-from pytest import fixture
-
-
-@fixture
-def list_signals_keys():
-    """
-    keys for dicts that the api returns
-    :return: list of keys
-    """
-    return ['data', 'links', 'meta']
-
-
-# def list_signals_keys():
-#     """
-#     keys for dicts that the api returns
-#     :return: list of keys
-#     """
-#     return ['data', 'links', 'meta']
 
 
 def test_connect_to_readysignal():
@@ -43,7 +24,6 @@ def test_list_signals():
 
     :return: list of signal ids, or error
     """
-    # rs_instance = ReadySignal(creds['signal_id'])
     access_token = creds['access_token']
     signals = list_signals(access_token)
 
@@ -55,7 +35,7 @@ def test_get_signal_details():
     access_token = creds['access_token']
     signal_id = creds['signal_id']
     signal_details = get_signal_details(access_token, signal_id)
-    print(get_signal_details(access_token, signal_id).keys())
+
     assert isinstance(signal_details, dict)
     assert 'data' in signal_details.keys()
 
@@ -68,6 +48,7 @@ def test_get_signal():
     assert isinstance(signal, dict)
     assert 'data' in signal.keys()
 
+
 def test_get_signal_pandas():
     access_token = creds['access_token']
     signal_id = creds['signal_id']
@@ -78,7 +59,7 @@ def test_get_signal_pandas():
 
 
 test_connect_to_readysignal()
-# test_list_signals()
+test_list_signals()
 test_get_signal_details()
 test_get_signal()
 test_get_signal()

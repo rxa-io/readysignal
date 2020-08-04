@@ -1,6 +1,5 @@
 import requests
 import pandas as pd
-from .readysignal import ReadySignal
 
 
 def connect_to_readysignal(access_token, signal_id='', output=False):

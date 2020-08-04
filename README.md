@@ -1,4 +1,4 @@
-# ReadySignal API
+# ReadySignal API - Python 3.6+
 
 ## Installation
 
