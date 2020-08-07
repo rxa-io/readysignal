@@ -1,9 +1,7 @@
 from tests.credentials import creds
-from readysignal import list_signals
-from readysignal import connect_to_readysignal
-from readysignal import get_signal_details
-from readysignal import get_signal
-from readysignal import get_signal_pandas
+from readysignal import connect_to_readysignal, list_signals, get_signal_details
+from readysignal import get_signal, get_signal_pandas, signal_to_csv
+import pandas as pd
 
 
 def test_connect_to_readysignal():
@@ -54,12 +52,19 @@ def test_get_signal_pandas():
     signal_id = creds['signal_id']
     signal = get_signal_pandas(access_token, signal_id)
 
-    assert isinstance(signal, dict)
-    assert 'data' in signal.keys()
+    assert isinstance(signal, type(pd.DataFrame()))
+    assert 'start' in signal.columns
+
+
+def test_signal_to_csv():
+    access_token = creds['access_token']
+    signal_id = creds['signal_id']
+    signal_to_csv(access_token, signal_id, 'test1')
 
 
 test_connect_to_readysignal()
 test_list_signals()
 test_get_signal_details()
 test_get_signal()
-test_get_signal()
+test_get_signal_pandas()
+test_signal_to_csv()
