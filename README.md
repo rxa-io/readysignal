@@ -1,21 +1,18 @@
 # ReadySignal API - Python 3.6+
+This library is designed to be a wrapper for the ReadySignal API: http://app.readysignal.com
+
+Please direct all questions and/or recommendations to jess.brown@rxa.io.
 
 ## Installation
-
-```shell script
-python -m pip install {path to directory}/dist/readysignal-0.2-py3-none-any.whl
-```
 
 ```shell script
 pip install readysignal
 ```
 
-###Command
-
-
-
 ## Usage
-
+Your access token can be found on your "Manage Signal" page within the Output information.
+The signal id can be found either within the Output information or in the URL of the 
+"Manage Signal" page: https://staging.app.readysignal.com/signal/{signal_id}/manage.
 ```python
 import readysignal as rs
 
