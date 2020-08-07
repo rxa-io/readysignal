@@ -28,6 +28,8 @@ def test_list_signals():
     assert isinstance(signals, dict)
     assert 'data' in signals.keys()
 
+    return signals
+
 
 def test_get_signal_details():
     access_token = creds['access_token']
@@ -36,6 +38,8 @@ def test_get_signal_details():
 
     assert isinstance(signal_details, dict)
     assert 'data' in signal_details.keys()
+
+    return signal_details
 
 
 def test_get_signal():
@@ -46,6 +50,8 @@ def test_get_signal():
     assert isinstance(signal, dict)
     assert 'data' in signal.keys()
 
+    return signal
+
 
 def test_get_signal_pandas():
     access_token = creds['access_token']
@@ -55,16 +61,21 @@ def test_get_signal_pandas():
     assert isinstance(signal, type(pd.DataFrame()))
     assert 'start' in signal.columns
 
+    return signal
+
 
 def test_signal_to_csv():
     access_token = creds['access_token']
     signal_id = creds['signal_id']
-    signal_to_csv(access_token, signal_id, 'test1')
+    file_name = 'test1.csv'
+    signal_to_csv(access_token, signal_id, file_name)
+
+    return file_name
 
 
 test_connect_to_readysignal()
 test_list_signals()
 test_get_signal_details()
 test_get_signal()
-test_get_signal_pandas()
+print(test_get_signal_pandas())
 test_signal_to_csv()
