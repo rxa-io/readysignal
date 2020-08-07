@@ -79,6 +79,11 @@ def signal_to_csv(access_token, signal_id, file_name):
     :param signal_id: signal's unique ID number
     :return: Pandas DataFrame of signal
     """
+    if '.' in file_name and '.csv' not in file_name:
+        exit('Please enter a file name in the format: "signal" or "signal.csv"')
+    elif '.' not in file_name:
+        file_name += '.csv'
+
     conn = connect_to_readysignal(access_token, signal_id, output=True)
     df = pd.DataFrame.from_dict(conn.json()['data'])
     df.to_csv(file_name, index=False)

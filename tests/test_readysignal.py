@@ -51,7 +51,7 @@ def test_get_signal_pandas():
     access_token = creds['access_token']
     signal_id = creds['signal_id']
     signal = get_signal_pandas(access_token, signal_id)
-    print(signal)
+
     assert isinstance(signal, type(pd.DataFrame()))
     assert 'start' in signal.columns
 
@@ -59,7 +59,7 @@ def test_get_signal_pandas():
 def test_signal_to_csv():
     access_token = creds['access_token']
     signal_id = creds['signal_id']
-    signal_to_csv(access_token, signal_id, 'test.csv')
+    signal_to_csv(access_token, signal_id, 'test1')
 
 
 test_connect_to_readysignal()

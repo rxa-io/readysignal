@@ -30,4 +30,8 @@ rs.get_signal(access_token, signal_id)
 
 # get signal data as Pandas DataFrame
 rs.get_signal_pandas(access_token, signal_id)
+
+# send signal data to csv file
+file_name = "test_signal.csv"
+rs.signal_to_csv(access_token, signal_id, file_name)
 ```
