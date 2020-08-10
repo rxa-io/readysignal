@@ -3,28 +3,47 @@ This library is designed to be a wrapper for the ReadySignal API: http://app.rea
 
 Please direct all questions and/or recommendations to jess.brown@rxa.io.
 
+<br>
+
 ## Installation
-```shell script
+```
 pip install readysignal
 ```
 
+<br>
+
 ## Usage
-Your access token can be found on your "Manage Signal" page within the Output information.
-The signal id can be found either within the Output information or in the URL of the 
-"Manage Signal" page: https://staging.app.readysignal.com/signal/{signal_id}/manage.
+
+Your **access token** and **signal ID** can be found on your "Manage Signal" page within the Output information.
+
+Your signal ID is also visible within the URL of the "Manage Signal" page:
+```
+...readysignal.com/signal/SIGNAL_ID/manage
+```
+
+<br>
+
+### Setup
+
 ```python
 import readysignal as rs
 
 access_token = "your access token"
 signal_id = 0
 ```
-#
-###List Signals
+
+<br>
+
+### List Signals
+
 Using your ```access_token```, you can list all signals and metadata that are associated with your ReadySignal account.
+
 ```python
 rs.list_signals(access_token)
 ```
-######Example Output:
+
+#### Example Output
+
 ```python
 {'data': [{
     'id': 0, 
@@ -91,14 +110,20 @@ rs.list_signals(access_token)
     ]
 }
 ```
-#
-###Signal Details
+
+<br>
+
+### Signal Details
+
 Using your ```access_token``` and your ```signal_id``` you can view the details of a specific signal.
+
 ```python
 # get signal details
 rs.get_signal_details(access_token, signal_id)
 ```
-######Example Output:
+
+#### Example Output
+
 ```python
 {'data': {
     'id': 0, 
@@ -160,15 +185,21 @@ rs.get_signal_details(access_token, signal_id)
     }
 }
 ```
-#
-###Signal Ouput
-There are three different ways to receive your signal output: JSON, Pandas DataFrame, or export to CSV.
-#####JSON
+
+<br>
+
+### Signal Ouput
+There are three different ways to receive your signal output:
+* JSON
+* Pandas DataFrame
+* CSV export
+
+### JSON
 ```python
 # get signal data as json
 rs.get_signal(access_token, signal_id)
 ```
-######Example Output:
+#### Example Output
 ```python
 {'current_page': 1, 
  'data': [
@@ -214,12 +245,13 @@ rs.get_signal(access_token, signal_id)
 	'to': 3, 
 	'total': 3}
 ```
-#####Pandas DataFrame
+
+### Pandas DataFrame
 ```python
 # get signal data as Pandas DataFrame
 rs.get_signal_pandas(access_token, signal_id)
 ```
-######Example Output:
+#### Example Output
 ```text
         start  ... population-total-transformed
 0  2019-11-01  ... 17,571.156421818115497622280458798
@@ -227,7 +259,7 @@ rs.get_signal_pandas(access_token, signal_id)
 2  2020-01-01  ... 18,732.472983479821748127047902849
 ```
 
-#####Export to CSV
+### Export to CSV
 ```python
 # send signal data to csv file
 file_name = "test_signal.csv"

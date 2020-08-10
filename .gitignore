@@ -1,3 +1,12 @@
-.idea
+# build stuff
 __pycache__
-tests
+readysignal.egg-info
+dist
+build
+
+# auth for testing
+credentials.py
+credentials.cpython-36.pyc
+
+# other
+.idea
