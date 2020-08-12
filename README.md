@@ -1,11 +1,12 @@
-# ReadySignal API - Python 3.6+
-This library is designed to be a wrapper for the ReadySignal API: http://app.readysignal.com
+# Ready Signal API - Python 3.6+
+This library is designed to be a wrapper for the Ready Signal API: http://app.readysignal.com
 
-Please direct all questions and/or recommendations to jess.brown@rxa.io.
+Please direct all questions and/or recommendations to support@readysignal.com
 
 <br>
 
 ## Installation
+The Ready Signal API Python library can be found here: https://pypi.org/project/readysignal/
 ```
 pip install readysignal
 ```
@@ -29,14 +30,14 @@ Your signal ID is also visible within the URL of the "Manage Signal" page:
 import readysignal as rs
 
 access_token = "your access token"
-signal_id = 0
+signal_id = 0  # this is your unique signal id number
 ```
 
 <br>
 
 ### List Signals
 
-Using your ```access_token```, you can list all signals and metadata that are associated with your ReadySignal account.
+Using your ```access_token```, you can list all signals and metadata that are associated with your Ready Signal account.
 
 ```python
 rs.list_signals(access_token)
