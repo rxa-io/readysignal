@@ -189,7 +189,7 @@ rs.get_signal_details(access_token, signal_id)
 
 <br>
 
-### Signal Ouput
+### Signal Output
 There are three different ways to receive your signal output:
 * JSON
 * Pandas DataFrame
