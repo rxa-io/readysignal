@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 
 
-def connect_to_readysignal(access_token, signal_id='', output=False):
+def connect_to_readysignal(access_token, signal_id=None, output=False):
     """
     creates connection to correct API URL to list signals, show signal
     details, and return complete signal data
@@ -12,21 +12,47 @@ def connect_to_readysignal(access_token, signal_id='', output=False):
     :param output: show signal data or not
     :return:
     """
-    # list signals
-    if not signal_id:
-        url = 'http://app.readysignal.com/api/signals'
-    # show signal details
-    elif not output:
-        url = f'http://app.readysignal.com/api/signals/{signal_id}'
-    # show signal
-    else:
-        url = f'http://app.readysignal.com/api/signals/{signal_id}/output'
+    try:
+        # show signal
+        if signal_id and output:
+            url = f'http://app.readysignal.com/api/signals/{str(signal_id)}/output'
+            headers = {'Authorization': 'Bearer ' + str(access_token),
+                       'Accept': 'application/json'}
 
-    headers = {'Authorization': 'Bearer ' + access_token,
-               'Accept': 'application/json'}
-    req = requests.get(url, headers=headers)
+            req = requests.get(url, headers=headers)
 
-    return req
+            if req.status_code != 200:
+                print(
+                    'Connection to Ready Signal failed. Check that your access token is up-to-date and signal ID is valid.')
+                return
+
+            resp = req.json()
+            num_pages = resp['last_page']
+
+            for page in range(2, num_pages + 1):
+                next_page = requests.get(f'http://app.readysignal.com/api/signals/{str(signal_id)}/output',
+                                         headers=headers,
+                                         params={'page': page}).json()
+                resp['data'] += next_page['data']
+
+            return resp['data']
+
+        # list signals
+        elif not signal_id:
+            url = 'http://app.readysignal.com/api/signals'
+
+        # show signal details
+        else:
+            url = f'http://app.readysignal.com/api/signals/{str(signal_id)}'
+
+        headers = {'Authorization': 'Bearer ' + str(access_token),
+                   'Accept': 'application/json'}
+        req = requests.get(url, headers=headers)
+
+        return req.json()
+    except Exception as e:
+        print('Connection to Ready Signal failed. Error:', e)
+        return
 
 
 def list_signals(access_token):
@@ -36,7 +62,7 @@ def list_signals(access_token):
     :return: json of signals
     """
     conn = connect_to_readysignal(access_token)
-    return conn.json()
+    return conn
 
 
 def get_signal_details(access_token, signal_id):
@@ -47,7 +73,7 @@ def get_signal_details(access_token, signal_id):
     :return: json of signal details
     """
     conn = connect_to_readysignal(access_token, signal_id)
-    return conn.json()
+    return conn
 
 
 def get_signal(access_token, signal_id):
@@ -58,7 +84,7 @@ def get_signal(access_token, signal_id):
     :return: json of signal
     """
     conn = connect_to_readysignal(access_token, signal_id, output=True)
-    return conn.json()
+    return conn
 
 
 def get_signal_pandas(access_token, signal_id):
@@ -69,7 +95,7 @@ def get_signal_pandas(access_token, signal_id):
     :return: Pandas DataFrame of signal
     """
     conn = connect_to_readysignal(access_token, signal_id, output=True)
-    return pd.DataFrame.from_dict(conn.json()['data'])
+    return pd.DataFrame.from_dict(conn)
 
 
 def signal_to_csv(access_token, signal_id, file_name):
