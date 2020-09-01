@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import time
 
 
 def connect_to_readysignal(access_token, signal_id=None, output=False):
@@ -34,6 +35,7 @@ def connect_to_readysignal(access_token, signal_id=None, output=False):
                                          headers=headers,
                                          params={'page': page}).json()
                 resp['data'] += next_page['data']
+                time.sleep(1)
 
             return resp['data']
 
