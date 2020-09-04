@@ -103,6 +103,7 @@ def get_signal_pandas(access_token, signal_id):
 def signal_to_csv(access_token, signal_id, file_name):
     """
     returns a signal's data as a Pandas DataFrame
+    :param file_name: name of file to write signal output to
     :param access_token: user's unique access token
     :param signal_id: signal's unique ID number
     :return: Pandas DataFrame of signal
@@ -112,6 +113,5 @@ def signal_to_csv(access_token, signal_id, file_name):
     elif '.' not in file_name:
         file_name += '.csv'
 
-    conn = connect_to_readysignal(access_token, signal_id, output=True)
-    df = pd.DataFrame.from_dict(conn.json()['data'])
-    df.to_csv(file_name, index=False)
+    output = get_signal_pandas(access_token, signal_id)
+    output.to_csv(file_name, index=False)
