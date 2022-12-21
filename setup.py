@@ -15,7 +15,7 @@ setuptools.setup(
      packages=setuptools.find_packages(),
      install_requires=[
           "requests~=2.24.0",
-          "pandas~=1.0.1"],
+          "pandas~=1.2.0"],
      classifiers=[]
      # [
      #     "Programming Language :: Python :: 3.6.8",
