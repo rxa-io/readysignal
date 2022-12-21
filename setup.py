@@ -14,8 +14,8 @@ setuptools.setup(
      url="https://github.com/rxa-io/readysignal",
      packages=setuptools.find_packages(),
      install_requires=[
-          "requests~>=2.24.0",
-          "pandas~>=1.2.0"],
+          "requests>=2.24.0",
+          "pandas>=1.2.0"],
      classifiers=[]
      # [
      #     "Programming Language :: Python :: 3.6.8",
