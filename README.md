@@ -266,3 +266,17 @@ rs.get_signal_pandas(access_token, signal_id)
 file_name = "test_signal.csv"
 rs.signal_to_csv(access_token, signal_id, file_name)
 ```
+
+### Delete Signal
+```python
+delete_signal(access_token, signal_id)
+```
+
+### Auto Discover Feature
+Creates a signal using your own data and the Auto Discover feature. 
+Please check Ready Signal site for tips on how to format your data. 
+Currently only available at the "State" or "Country" geo grain. Use file name OR DataFrame.
+
+```python
+rs.auto_discover(access_token, geo_grain, filename=None, df=None):
+```
