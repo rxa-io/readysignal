@@ -161,11 +161,13 @@ def auto_discover(access_token, geo_grain, filename=None, df=None):
                             headers={'Authorization': 'Bearer ' + str(access_token)})
     elif df is not None:
         url = base_url + '/array'
+        df['Date'] = df['Date'].astype(str)
         body = {"geo_grain": geo_grain, "data": df.to_dict(orient='records')}
 
         req = requests.post(url, json=body, headers={'Authorization': 'Bearer ' + str(access_token)})
 
     else:
         exit('Missing data source, please provide "filename" as filepath or "df" as Pandas dataframe')
+
     print(req.json())
     return req
