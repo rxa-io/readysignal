@@ -281,5 +281,5 @@ Please check Ready Signal site for tips on how to format your data.
 Currently only available at the *"State"* or *"Country"* geo grain. Use a file name OR Pandas DataFrame.
 Please visit the Ready Signal site for information on how to format your file.
 ```python
-rs.auto_discover(access_token, geo_grain, filename=None, df=None)
+rs.auto_discover(access_token, geo_grain, date_grain, filename=None, df=None)
 ```

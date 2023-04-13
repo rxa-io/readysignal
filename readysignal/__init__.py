@@ -134,12 +134,13 @@ def delete_signal(access_token, signal_id):
     return req
 
 
-def auto_discover(access_token, geo_grain, filename=None, df=None):
+def auto_discover(access_token, geo_grain, date_grain, filename=None, df=None):
     """
     Creates a signal using your own data and the Auto Discover feature. Please check Ready Signal site for tips on
     how to format your data. Currently only available at the "State" or "Country" geo grain.
     :param access_token: user's unique access token
     :param geo_grain: geographic grain of data upload: "State" or "Country"
+    :param date_grain: date grain of data upload: "Day" or "Month"
     :param filename: if using file upload, filename. Accepted file formats: .CSV or .XLSX. Column naming schema should
     be "Date" (YYYY-MM-DD), "State" (MI) if geo_grain="State", "Value" (int or float, no strings).
     Not to be used with 'df'
@@ -152,17 +153,19 @@ def auto_discover(access_token, geo_grain, filename=None, df=None):
 
     if geo_grain not in ['State', 'Country']:
         exit('Geographic grain for data must be "State" or "Country"')
+    elif date_grain not in ['Day', 'Month']:
+        exit('Date grain for data must be "Day" or "Month"')
     elif filename and df is not None:
         exit('Please use only one of "filename" or "df" for Auto Discover feature')
 
     elif filename:
         url = base_url + '/file'
-        req = requests.post(url, data={'geo_grain': geo_grain}, files={'file': open(filename, 'rb')},
+        req = requests.post(url, data={'geo_grain': geo_grain, 'date_grain': date_grain}, files={'file': open(filename, 'rb')},
                             headers={'Authorization': 'Bearer ' + str(access_token)})
     elif df is not None:
         url = base_url + '/array'
         df['Date'] = df['Date'].astype(str)
-        body = {"geo_grain": geo_grain, "data": df.to_dict(orient='records')}
+        body = {"geo_grain": geo_grain, 'date_grain': date_grain, "data": df.to_dict(orient='records')}
 
         req = requests.post(url, json=body, headers={'Authorization': 'Bearer ' + str(access_token)})
 
