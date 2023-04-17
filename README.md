@@ -278,8 +278,9 @@ rs.delete_signal(access_token, signal_id)
 ### Auto Discover Feature
 Creates a signal using your own data and the Auto Discover feature. 
 Please check Ready Signal site for tips on how to format your data. 
-Currently only available at the *"State"* or *"Country"* geo grain. Use a file name OR Pandas DataFrame.
-Please visit the Ready Signal site for information on how to format your file.
+Currently only available at the *"State"* or *"Country"* geo grain and the *“Month”* or *“Day”* time grain. 
+Use a file name OR Pandas DataFrame.
+
 ```python
 rs.auto_discover(access_token, geo_grain, date_grain, filename=None, df=None)
 ```
