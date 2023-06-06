@@ -282,5 +282,5 @@ Currently only available at the *"State"* or *"Country"* geo grain and the *“M
 Use a file name OR Pandas DataFrame.
 
 ```python
-rs.auto_discover(access_token, geo_grain, date_grain, filename=None, df=None)
+rs.auto_discover(access_token, geo_grain, date_grain, filename=None, df=None, create_custom_features=1)
 ```

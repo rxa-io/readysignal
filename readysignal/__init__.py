@@ -134,7 +134,7 @@ def delete_signal(access_token, signal_id):
     return req
 
 
-def auto_discover(access_token, geo_grain, date_grain, filename=None, df=None):
+def auto_discover(access_token, geo_grain, date_grain, filename=None, df=None, create_custom_features=1):
     """
     Creates a signal using your own data and the Auto Discover feature. Please check Ready Signal site for tips on
     how to format your data. Currently only available at the "State" or "Country" geo grain.
@@ -147,6 +147,8 @@ def auto_discover(access_token, geo_grain, date_grain, filename=None, df=None):
     :param df: if using Pandas DataFrame upload, DataFrame object. Column naming schema should
     be "Date" (YYYY-MM-DD), "State" (MI) if geo_grain="State", "Value" (int or float, no strings).
     Not to be used with 'filename'
+    :param create_custom_features: a flag to denote whether or not the target feature will be saved to the
+    ready signal platform for reporting reference.
     :return: requests response object
     """
     base_url = 'https://app.readysignal.com/api/auto-discovery'
@@ -157,15 +159,17 @@ def auto_discover(access_token, geo_grain, date_grain, filename=None, df=None):
         exit('Date grain for data must be "Day" or "Month"')
     elif filename and df is not None:
         exit('Please use only one of "filename" or "df" for Auto Discover feature')
+    elif create_custom_features not in [0,1]:
+        exit('Create Custom Features flag must be a 0 or a 1')
 
     elif filename:
         url = base_url + '/file'
-        req = requests.post(url, data={'geo_grain': geo_grain, 'date_grain': date_grain}, files={'file': open(filename, 'rb')},
+        req = requests.post(url, data={'geo_grain': geo_grain, 'date_grain': date_grain, 'create_custom_features': create_custom_features}, files={'file': open(filename, 'rb')},
                             headers={'Authorization': 'Bearer ' + str(access_token)})
     elif df is not None:
         url = base_url + '/array'
         df['Date'] = df['Date'].astype(str)
-        body = {"geo_grain": geo_grain, 'date_grain': date_grain, "data": df.to_dict(orient='records')}
+        body = {"geo_grain": geo_grain, 'date_grain': date_grain, 'create_custom_features': create_custom_features, "data": df.to_dict(orient='records')}
 
         req = requests.post(url, json=body, headers={'Authorization': 'Bearer ' + str(access_token)})
 
