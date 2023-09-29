@@ -4,7 +4,7 @@ name: Publish Python Distributions to TestPyPI
 on:
   # Triggers the workflow on push or pull request events but only for the "test_release" branch
   push:
-    branches: [ "test_release" ]
+    branches: [ "features_to_pandas" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
