@@ -2,6 +2,9 @@ import requests
 import pandas as pd
 import time
 import json
+import pymysql
+import config
+import configparser
 
 
 def connect_to_readysignal(access_token, signal_id=None, output=False):
@@ -178,3 +181,49 @@ def auto_discover(access_token, geo_grain, date_grain, filename=None, df=None, c
 
     print(req.json())
     return req
+
+def mysql_connection():
+    config = configparser.ConfigParser()
+    config.read('config.py')
+    try:
+        connection = pymysql.connect(
+            host=config['CREDENTIALS']['HOST'],
+            user=config['CREDENTIALS']['USERNAME'],
+            password=config['CREDENTIALS']['PASSWORD'],
+            database='readysignal'
+        )
+        return connection
+    except pymysql.connector.Error as err:
+        print("Error: Unable to connect to MySQL database.")
+        print(err)
+        return None
+
+def connect_to_readysignal_features(access_token, features, time_grain, lag = 0, output=False):
+    """
+    Pull data from Bank of Mexico datasets based on feature_id
+
+    :param access_token: individual identification for readysignal
+    :param type: string
+    :param features: list of feature_ids to select from database
+    :param type: list of integer(s)
+    :param time_grain: type of time grain requested
+    :param type: string of either "daily", "monthly" or "both"
+    :param lag: lag value, if any
+    :param type: integer
+    :return: datasets containing feature values
+    :return type: pandas dataframe
+    """
+    df = pd.DataFrame()
+    #if "daily" and "monthly" in time_grain:
+    if time_grain == "daily":
+        connection = mysql_connection()
+        with connection:
+            with connection.cursor() as cursor:
+                for i in features:
+                    fields = "value_sum, date_lag_"+str(lag)
+                    table = "consolidate_daily_data_bank_of_mexico"
+                    conditions = ' = feature_id OR '.join(str(i) for i in features) + ' = feature_id'
+
+                    query = (f"SELECT {fields} "
+                        f"FROM {table} "
+                        f"WHERE {conditions};")
