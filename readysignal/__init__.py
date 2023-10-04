@@ -182,7 +182,7 @@ def auto_discover(access_token, geo_grain, date_grain, filename=None, df=None, c
     print(req.json())
     return req
 
-def connect_to_readysignal_features(access_token, features, start_date = None, end_date = None, details=False):
+def connect_to_readysignal_features(access_token, features = None, start_date = None, end_date = None, details=False):
     """
     Pull data from Bank of Mexico datasets based on feature_id
 
@@ -205,7 +205,7 @@ def connect_to_readysignal_features(access_token, features, start_date = None, e
 
     try:
         # get feature(s) data
-        if start_date and end_date:
+        if features and start_date and end_date:
             url = f'https://staging.app.readysignal.com/api/bank-of-mexico/data'
             headers = {'Authorization': 'Bearer ' + str(access_token),
                        'Accept': 'application/json'}
