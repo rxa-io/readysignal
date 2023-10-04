@@ -245,7 +245,7 @@ def features_list(access_token):
     :param type: string
     :return: json of bank of mexico features
     """
-    conn_features = connect_to_readysignal(access_token)
+    conn_features = connect_to_readysignal_features(access_token)
     return conn_features
 
 def feature_show(access_token, features):
@@ -257,7 +257,7 @@ def feature_show(access_token, features):
     :param features: list of 
     :return: json of bank of feature
     """
-    conn_features = connect_to_readysignal(access_token, features)
+    conn_features = connect_to_readysignal_features(access_token, features)
     return conn_features
 
 def feature_details(access_token, features):
@@ -268,7 +268,7 @@ def feature_details(access_token, features):
     :param type: string
     :return: json of a feature's details
     """
-    conn_features = connect_to_readysignal(access_token, features, details = True)
+    conn_features = connect_to_readysignal_features(access_token, features, details = True)
     return conn_features
 
 def features_data(access_token, features, start_date, end_date):
@@ -285,5 +285,5 @@ def features_data(access_token, features, start_date, end_date):
     :param type: string in Y-m-d format
     :return: json of bank of mexico features data
     """
-    conn_features = connect_to_readysignal(access_token, features, start_date, end_date)
+    conn_features = connect_to_readysignal_features(access_token, features, start_date, end_date)
     return conn_features
