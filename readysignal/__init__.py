@@ -182,7 +182,7 @@ def auto_discover(access_token, geo_grain, date_grain, filename=None, df=None, c
     print(req.json())
     return req
 
-def connect_to_readysignal_features(access_token, features, start_date = None, end_date = None, details=False):
+def connect_to_readysignal_features(access_token, features = None, start_date = None, end_date = None, details=False):
     """
     Pull data from Bank of Mexico datasets based on feature_id
 
@@ -191,9 +191,9 @@ def connect_to_readysignal_features(access_token, features, start_date = None, e
     :param features: list of Bank of Mexico feature_id(s)
     :param type: list of integer(s)
     :param start_date: start date for features
-    :param type: 
+    :param type: string in Y-m-d format    
     :param end_date: end_date for features
-    :param type: 
+    :param type: string in Y-m-d format
     :param details: show feature details
     :param type: boolean
     :return: request response as json
@@ -217,15 +217,15 @@ def connect_to_readysignal_features(access_token, features, start_date = None, e
 
         # show feature's details
         elif len(features) == 1 and details == True:
-            url = f'https://staging.app.readysignal.com//api/bank-of-mexico/feature/{features[0]}/details'
+            url = f'https://staging.app.readysignal.com/api/bank-of-mexico/feature/{features[0]}/details'
 
         # show feature's information
         elif len(features) == 1:
-            url = f'https://staging.app.readysignal.com//api/bank-of-mexico/feature/{features[0]}'
+            url = f'https://staging.app.readysignal.com/api/bank-of-mexico/feature/{features[0]}'
 
         # list all Bank of Mexico features
         else:
-            url = f'https://staging.app.readysignal.com//api/bank-of-mexico/'
+            url = f'https://staging.app.readysignal.com/api/bank-of-mexico/'
 
         headers = {'Authorization': 'Bearer ' + str(access_token),
                    'Accept': 'application/json'}
@@ -236,3 +236,54 @@ def connect_to_readysignal_features(access_token, features, start_date = None, e
     except Exception as e:
         print('Connection to Ready Signal failed. Error:', e)
         return
+    
+def features_list(access_token):
+    """
+    List Bank of Mexico features available in the system
+
+    :param access_token: individual identification for readysignal
+    :param type: string
+    :return: json of bank of mexico features
+    """
+    conn_features = connect_to_readysignal(access_token)
+    return conn_features
+
+def feature_show(access_token, features):
+    """
+    Show information on one feature
+
+    :param access_token: individual identification for readysignal
+    :param type: string
+    :param features: list of 
+    :return: json of bank of feature
+    """
+    conn_features = connect_to_readysignal(access_token, features)
+    return conn_features
+
+def feature_details(access_token, features):
+    """
+    Show detailed information about a specific feature
+
+    :param access_token: individual identification for readysignal
+    :param type: string
+    :return: json of a feature's details
+    """
+    conn_features = connect_to_readysignal(access_token, features, details = True)
+    return conn_features
+
+def features_data(access_token, features, start_date, end_date):
+    """
+    Filter Bank Of Mexico data by certain dates and feature_ids.
+
+    :param access_token: individual identification for readysignal
+    :param type: string
+    :param features: list of Bank of Mexico feature_id(s)
+    :param type: list of integer(s)
+    :param start_date: start date for features
+    :param type: string in Y-m-d format    
+    :param end_date: end_date for features
+    :param type: string in Y-m-d format
+    :return: json of bank of mexico features data
+    """
+    conn_features = connect_to_readysignal(access_token, features, start_date, end_date)
+    return conn_features
