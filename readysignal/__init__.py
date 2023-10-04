@@ -211,7 +211,7 @@ def connect_to_readysignal_features(access_token, features, start_date = None, e
                        'Accept': 'application/json'}
             body = {'start_date': str(start_date), 'end_date': str(end_date), 'features_id':features}
 
-            req = requests.post(url, headers=headers, body = body)
+            req = requests.post(url, headers=headers, data = body)
 
         # show feature's details
         elif len(features) == 1 and details == True:
