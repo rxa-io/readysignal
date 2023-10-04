@@ -182,48 +182,62 @@ def auto_discover(access_token, geo_grain, date_grain, filename=None, df=None, c
     print(req.json())
     return req
 
-def mysql_connection():
-    config = configparser.ConfigParser()
-    config.read('config.py')
-    try:
-        connection = pymysql.connect(
-            host=config['CREDENTIALS']['HOST'],
-            user=config['CREDENTIALS']['USERNAME'],
-            password=config['CREDENTIALS']['PASSWORD'],
-            database='readysignal'
-        )
-        return connection
-    except pymysql.connector.Error as err:
-        print("Error: Unable to connect to MySQL database.")
-        print(err)
-        return None
-
-def connect_to_readysignal_features(access_token, features, time_grain, lag = 0, output=False):
+def connect_to_readysignal_features(access_token, features, start_date = None, end_date = None, details=False):
     """
     Pull data from Bank of Mexico datasets based on feature_id
 
     :param access_token: individual identification for readysignal
     :param type: string
-    :param features: list of feature_ids to select from database
+    :param features: list of Bank of Mexico feature_id(s)
     :param type: list of integer(s)
-    :param time_grain: type of time grain requested
-    :param type: string of either "daily", "monthly" or "both"
-    :param lag: lag value, if any
-    :param type: integer
-    :return: datasets containing feature values
-    :return type: pandas dataframe
+    :param start_date: start date for features
+    :param type: 
+    :param end_date: end_date for features
+    :param type: 
+    :param details: show feature details
+    :param type: boolean
+    :return: request response as json
     """
-    df = pd.DataFrame()
-    #if "daily" and "monthly" in time_grain:
-    if time_grain == "daily":
-        connection = mysql_connection()
-        with connection:
-            with connection.cursor() as cursor:
-                for i in features:
-                    fields = "value_sum, date_lag_"+str(lag)
-                    table = "consolidate_daily_data_bank_of_mexico"
-                    conditions = ' = feature_id OR '.join(str(i) for i in features) + ' = feature_id'
+    try:
+        # show signal
+        if features and date:
+            url = f'http://app.readysignal.com/api/signals/{str(signal_id)}/output'
+            headers = {'Authorization': 'Bearer ' + str(access_token),
+                       'Accept': 'application/json'}
 
-                    query = (f"SELECT {fields} "
-                        f"FROM {table} "
-                        f"WHERE {conditions};")
+            req = requests.get(url, headers=headers)
+
+            if req.status_code != 200:
+                print(
+                    'Connection to Ready Signal failed. Check that your access token is up-to-date and signal ID is valid.')
+                return
+
+            resp = req.json()
+            num_pages = resp['last_page']
+
+            for page in range(2, num_pages + 1):
+                next_page = requests.get(f'http://app.readysignal.com/api/signals/{str(signal_id)}/output',
+                                         headers=headers,
+                                         params={'page': page}).json()
+                resp['data'] += next_page['data']
+                time.sleep(1)
+
+            return resp['data']
+
+        # show feature details
+        elif len(features) == 1 and details == True:
+            url = f'https://staging.app.readysignal.com//api/bank-of-mexico/feature/{features[0]}/details'
+
+        # List all Bank Of Mexico features available
+        elif len(features) == 1:
+            url = f'https://staging.app.readysignal.com//api/bank-of-mexico/feature/{features[0]}'
+
+        headers = {'Authorization': 'Bearer ' + str(access_token),
+                   'Accept': 'application/json'}
+        req = requests.get(url, headers=headers)
+
+        return req.json()
+    
+    except Exception as e:
+        print('Connection to Ready Signal failed. Error:', e)
+        return
