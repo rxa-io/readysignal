@@ -205,7 +205,7 @@ def connect_to_readysignal_features(access_token, features, start_date = None, e
 
     try:
         # get feature(s) data
-        if features and start_date and end_date:
+        if start_date and end_date:
             url = f'https://staging.app.readysignal.com/api/bank-of-mexico/data'
             headers = {'Authorization': 'Bearer ' + str(access_token),
                        'Accept': 'application/json'}
