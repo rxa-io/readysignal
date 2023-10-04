@@ -182,6 +182,8 @@ def auto_discover(access_token, geo_grain, date_grain, filename=None, df=None, c
     print(req.json())
     return req
 
+# functions for feature specific
+
 def connect_to_readysignal_features(access_token, features = None, start_date = None, end_date = None, details=False):
     """
     Pull data from Bank of Mexico datasets based on feature_id

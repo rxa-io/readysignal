@@ -1,6 +1,7 @@
 from tests.credentials import creds
 from readysignal import connect_to_readysignal, list_signals, get_signal_details, delete_signal, auto_discover
 from readysignal import get_signal, get_signal_pandas, signal_to_csv
+from readysignal import connect_to_readysignal_features, features_list, feature_show, feature_details, features_data
 import pandas as pd
 import time
 
@@ -93,6 +94,74 @@ def test_delete_signal(signal_id):
     assert response.status_code == 200
     return response
 
+# tests for feature specific
+
+def test_connect_to_readysignal_features():
+    """
+    tests the API connection to Ready Signal
+
+    :return: API connection or error
+    """
+    access_token = creds['access_token']
+    rs = connect_to_readysignal_features(access_token)
+
+    assert isinstance(rs, dict)
+
+def test_features_list():
+    """
+    tests an API call to get list of all Bank of Mexico features
+
+    :return: list of signal ids, or error
+    """
+    access_token = creds['access_token']
+    list_features = features_list(access_token)
+
+    assert isinstance(list_features, dict)
+    assert 'data' in list_features.keys()
+
+    return list_features
+
+def test_feature_show():
+    """
+    tests an API call to get list of all Bank of Mexico features
+
+    :return: list of signal ids, or error
+    """
+    access_token = creds['access_token']
+    feat_show = feature_show(access_token)
+
+    assert isinstance(feat_show, dict)
+    assert 'data' in feat_show.keys()
+
+    return feat_show
+
+def test_feature_details():
+    """
+    tests an API call to get list of all Bank of Mexico features
+
+    :return: list of signal ids, or error
+    """
+    access_token = creds['access_token']
+    feat_details = feature_details(access_token)
+
+    assert isinstance(feat_details, dict)
+    assert 'data' in feat_details.keys()
+
+    return feat_details
+
+def test_features_data():
+    """
+    tests an API call to get list of all Bank of Mexico features
+
+    :return: list of signal ids, or error
+    """
+    access_token = creds['access_token']
+    feat_data = feature_details(access_token)
+
+    assert isinstance(feat_data, dict)
+    assert 'data' in feat_data.keys()
+
+    return feat_data
 
 test_connect_to_readysignal()
 test_list_signals()
@@ -102,4 +171,11 @@ print(test_get_signal_pandas())
 test_signal_to_csv()
 auto_disc = test_auto_discover().json()
 test_delete_signal(auto_disc['signal_id'])
+test_connect_to_readysignal_features()
+test_features_list()
+test_feature_show()
+test_feature_details()
+test_features_data()
+
+
 
