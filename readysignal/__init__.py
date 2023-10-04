@@ -198,39 +198,32 @@ def connect_to_readysignal_features(access_token, features, start_date = None, e
     :param type: boolean
     :return: request response as json
     """
+    # bom_features = []
+    # for f in features:
+    #     if f not in bom_features:
+    #         print(f'{str(f)} is not a feature_id in this dataset')
+
     try:
-        # show signal
-        if features and date:
-            url = f'http://app.readysignal.com/api/signals/{str(signal_id)}/output'
+        # get feature(s) data
+        if features and start_date and end_date:
+            url = f'https://staging.app.readysignal.com/api/bank-of-mexico/data'
             headers = {'Authorization': 'Bearer ' + str(access_token),
                        'Accept': 'application/json'}
+            body = {'start_date': str(start_date), 'end_date': str(end_date), 'features_id':features}
 
-            req = requests.get(url, headers=headers)
+            req = requests.post(url, headers=headers, body = body)
 
-            if req.status_code != 200:
-                print(
-                    'Connection to Ready Signal failed. Check that your access token is up-to-date and signal ID is valid.')
-                return
-
-            resp = req.json()
-            num_pages = resp['last_page']
-
-            for page in range(2, num_pages + 1):
-                next_page = requests.get(f'http://app.readysignal.com/api/signals/{str(signal_id)}/output',
-                                         headers=headers,
-                                         params={'page': page}).json()
-                resp['data'] += next_page['data']
-                time.sleep(1)
-
-            return resp['data']
-
-        # show feature details
+        # show feature's details
         elif len(features) == 1 and details == True:
             url = f'https://staging.app.readysignal.com//api/bank-of-mexico/feature/{features[0]}/details'
 
-        # List all Bank Of Mexico features available
+        # show feature's information
         elif len(features) == 1:
             url = f'https://staging.app.readysignal.com//api/bank-of-mexico/feature/{features[0]}'
+
+        # list all Bank of Mexico features
+        else:
+            url = f'https://staging.app.readysignal.com//api/bank-of-mexico/'
 
         headers = {'Authorization': 'Bearer ' + str(access_token),
                    'Accept': 'application/json'}
