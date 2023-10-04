@@ -216,11 +216,11 @@ def connect_to_readysignal_features(access_token, features = None, start_date = 
             return req.json()
 
         # show feature's details
-        elif not features and len(features) == 1 and details == True:
+        elif features and len(features) == 1 and details == True:
             url = f'https://staging.app.readysignal.com/api/bank-of-mexico/feature/{features[0]}/details'
 
         # show feature's information
-        elif not features and len(features) == 1:
+        elif features and len(features) == 1:
             url = f'https://staging.app.readysignal.com/api/bank-of-mexico/feature/{features[0]}'
 
         # list all Bank of Mexico features
