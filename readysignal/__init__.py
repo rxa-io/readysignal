@@ -213,7 +213,7 @@ def connect_to_readysignal_features(access_token, features = None, start_date = 
                        'Accept': 'application/json'}
             body = {'start_date': str(start_date), 'end_date': str(end_date), 'features_id':features}
 
-            req = requests.post(url, headers=headers, data = body)
+            req = requests.post(url, headers=headers, json = body)
 
             return req.json()
 
