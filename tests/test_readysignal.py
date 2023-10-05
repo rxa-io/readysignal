@@ -102,7 +102,7 @@ def test_connect_to_readysignal_features():
 
     :return: API connection or error
     """
-    access_token = creds['access_token']
+    access_token = creds['access_token_staging']
     rs = connect_to_readysignal_features(access_token)
 
     assert isinstance(rs, dict)
@@ -113,7 +113,7 @@ def test_get_features_list():
 
     :return: list of signal ids, or error
     """
-    access_token = creds['access_token']
+    access_token = creds['access_token_staging']
     list_features = get_features_list(access_token)
 
     assert isinstance(list_features, dict)
@@ -127,7 +127,7 @@ def test_show_feature():
 
     :return: list of signal ids, or error
     """
-    access_token = creds['access_token']
+    access_token = creds['access_token_staging']
     feature = 317
     feat_show = show_feature(access_token, feature)
     feat_dict = list(feat_show.values())[0]
@@ -144,7 +144,7 @@ def test_show_feature_detailed():
 
     :return: list of signal ids, or error
     """
-    access_token = creds['access_token']
+    access_token = creds['access_token_staging']
     feature = 317
     feat_details = show_feature_detailed(access_token, feature)
     feat_dict = list(feat_details.values())[0]
@@ -161,13 +161,29 @@ def test_features_data():
 
     :return: list of signal ids, or error
     """
-    access_token = creds['access_token']
-    feat_data = feature_details(access_token)
+    access_token = creds['access_token_staging']
+    feat_data = get_feature_data(access_token)
 
     assert isinstance(feat_data, dict)
     assert 'data' in feat_data.keys()
 
     return feat_data
+
+def test_feature_data_pandas():
+    """
+    tests an API call to get list of all Bank of Mexico features
+
+    :return: list of signal ids, or error
+    """
+    access_token = creds['access_token_staging']
+    features = 317
+    start_date = '2021-01-01'
+    end_date = '2021-12-31'
+    df = get_feature_data_pandas(access_token, features, start_date, end_date)
+
+    assert isinstance(df, pd.DataFrame)
+
+    return df
 
 test_connect_to_readysignal()
 test_list_signals()
@@ -178,10 +194,11 @@ test_signal_to_csv()
 auto_disc = test_auto_discover().json()
 test_delete_signal(auto_disc['signal_id'])
 test_connect_to_readysignal_features()
-test_features_list()
-test_feature_show()
-test_feature_details()
+test_get_features_list()
+test_show_feature()
+test_show_feature_detailed()
 test_features_data()
+test_feature_data_pandas()
 
 
 
