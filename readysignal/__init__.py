@@ -239,7 +239,7 @@ def connect_to_readysignal_features(access_token, features = None, start_date = 
         print('Connection to Ready Signal failed. Error:', e)
         return
     
-def features_list(access_token):
+def get_features_list(access_token):
     """
     List Bank of Mexico features available in the system
 
@@ -250,7 +250,7 @@ def features_list(access_token):
     conn_features = connect_to_readysignal_features(access_token)
     return conn_features
 
-def feature_show(access_token, features):
+def show_feature(access_token, features):
     """
     Show information on one feature
 
@@ -262,7 +262,7 @@ def feature_show(access_token, features):
     conn_features = connect_to_readysignal_features(access_token, features)
     return conn_features
 
-def feature_details(access_token, features):
+def show_feature_detailed(access_token, features):
     """
     Show detailed information about a specific feature
 
@@ -273,7 +273,7 @@ def feature_details(access_token, features):
     conn_features = connect_to_readysignal_features(access_token, features, details = True)
     return conn_features
 
-def features_data(access_token, features, start_date, end_date):
+def get_feature_data(access_token, features, start_date, end_date):
     """
     Filter Bank Of Mexico data by certain dates and feature_ids.
 
