@@ -308,5 +308,5 @@ def get_feature_data_pandas(access_token, features, start_date, end_date):
     data = list(conn_features.values())
     df = pd.DataFrame(columns = list(data[0][0].keys()))
     for i in range(len(data[0])):
-        df.loc[len(df.index)] = list(df[0][i].values())
+        df.loc[len(df.index)] = list(data[0][i].values())
     return df
