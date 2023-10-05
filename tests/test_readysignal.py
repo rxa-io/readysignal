@@ -1,7 +1,7 @@
 from tests.credentials import creds
 from readysignal import connect_to_readysignal, list_signals, get_signal_details, delete_signal, auto_discover
 from readysignal import get_signal, get_signal_pandas, signal_to_csv
-from readysignal import connect_to_readysignal_features, features_list, feature_show, feature_details, features_data
+from readysignal import connect_to_readysignal_features, get_features_list, show_feature, show_feature_detailed, get_feature_data, get_feature_data_pandas
 import pandas as pd
 import time
 
@@ -107,45 +107,51 @@ def test_connect_to_readysignal_features():
 
     assert isinstance(rs, dict)
 
-def test_features_list():
+def test_get_features_list():
     """
     tests an API call to get list of all Bank of Mexico features
 
     :return: list of signal ids, or error
     """
     access_token = creds['access_token']
-    list_features = features_list(access_token)
+    list_features = get_features_list(access_token)
 
     assert isinstance(list_features, dict)
     assert 'data' in list_features.keys()
 
     return list_features
 
-def test_feature_show():
+def test_show_feature():
     """
     tests an API call to get list of all Bank of Mexico features
 
     :return: list of signal ids, or error
     """
     access_token = creds['access_token']
-    feat_show = feature_show(access_token)
-
+    feature = 317
+    feat_show = show_feature(access_token, feature)
+    feat_dict = list(feat_show.values())[0]
+   
     assert isinstance(feat_show, dict)
     assert 'data' in feat_show.keys()
-
+    assert feature[0] in feat_dict.values()
+    
     return feat_show
 
-def test_feature_details():
+def test_show_feature_detailed():
     """
     tests an API call to get list of all Bank of Mexico features
 
     :return: list of signal ids, or error
     """
     access_token = creds['access_token']
-    feat_details = feature_details(access_token)
+    feature = 317
+    feat_details = show_feature_detailed(access_token, feature)
+    feat_dict = list(feat_details.values())[0]
 
     assert isinstance(feat_details, dict)
     assert 'data' in feat_details.keys()
+    assert feature[0] in feat_dict.values()
 
     return feat_details
 
