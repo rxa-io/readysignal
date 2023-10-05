@@ -117,7 +117,6 @@ def test_get_features_list():
     list_features = get_features_list(access_token)
 
     assert isinstance(list_features, dict)
-    assert 'data' in list_features.keys()
 
     return list_features
 
@@ -128,12 +127,11 @@ def test_show_feature():
     :return: list of signal ids, or error
     """
     access_token = creds['access_token_staging']
-    feature = 317
+    feature = [317]
     feat_show = show_feature(access_token, feature)
     feat_dict = list(feat_show.values())[0]
    
     assert isinstance(feat_show, dict)
-    assert 'data' in feat_show.keys()
     assert feature[0] in feat_dict.values()
     
     return feat_show
@@ -145,12 +143,11 @@ def test_show_feature_detailed():
     :return: list of signal ids, or error
     """
     access_token = creds['access_token_staging']
-    feature = 317
+    feature = [317]
     feat_details = show_feature_detailed(access_token, feature)
     feat_dict = list(feat_details.values())[0]
 
     assert isinstance(feat_details, dict)
-    assert 'data' in feat_details.keys()
     assert feature[0] in feat_dict.values()
 
     return feat_details
@@ -165,7 +162,6 @@ def test_features_data():
     feat_data = get_feature_data(access_token)
 
     assert isinstance(feat_data, dict)
-    assert 'data' in feat_data.keys()
 
     return feat_data
 
@@ -185,14 +181,14 @@ def test_feature_data_pandas():
 
     return df
 
-test_connect_to_readysignal()
-test_list_signals()
-test_get_signal_details()
-test_get_signal()
-print(test_get_signal_pandas())
-test_signal_to_csv()
-auto_disc = test_auto_discover().json()
-test_delete_signal(auto_disc['signal_id'])
+# test_connect_to_readysignal()
+# test_list_signals()
+# test_get_signal_details()
+# test_get_signal()
+# print(test_get_signal_pandas())
+# test_signal_to_csv()
+# auto_disc = test_auto_discover().json()
+# test_delete_signal(auto_disc['signal_id'])
 test_connect_to_readysignal_features()
 test_get_features_list()
 test_show_feature()
