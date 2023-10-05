@@ -99,7 +99,7 @@ def test_connect_to_readysignal_features():
     """
     tests the API connection to Ready Signal
 
-    :return: API connection or error
+    :return: dictionary of feature_ids or connection error
     """
     access_token = creds['access_token_staging']
     rs = connect_to_readysignal_features(access_token)
@@ -110,7 +110,7 @@ def test_get_features_list():
     """
     tests an API call to get list of all Bank of Mexico features
 
-    :return: list of signal ids, or error
+    :return: list of features in Bank of Mexico, or error
     """
     access_token = creds['access_token_staging']
     list_features = get_features_list(access_token)
@@ -123,7 +123,7 @@ def test_show_feature():
     """
     tests an API call to get list of all Bank of Mexico features
 
-    :return: list of signal ids, or error
+    :return: dictionary of feature(s)'s basic information, or error
     """
     access_token = creds['access_token_staging']
     feature = [317]
@@ -139,7 +139,7 @@ def test_show_feature_detailed():
     """
     tests an API call to get list of all Bank of Mexico features
 
-    :return: list of signal ids, or error
+    :return: dictionary of feature(s)'s detailed information, or error
     """
     access_token = creds['access_token_staging']
     feature = [317]
@@ -147,7 +147,6 @@ def test_show_feature_detailed():
     feat_dict = list(feat_details.values())[0]
 
     assert isinstance(feat_details, dict)
-    # assert feature[0] in feat_dict.values()
 
     return feat_details
 
@@ -155,7 +154,7 @@ def test_features_data():
     """
     tests an API call to get list of all Bank of Mexico features
 
-    :return: list of signal ids, or error
+    :return: dictionary of features and data, or error
     """
     access_token = creds['access_token_staging']
     features = 317
@@ -171,7 +170,7 @@ def test_feature_data_pandas():
     """
     tests an API call to get list of all Bank of Mexico features
 
-    :return: list of signal ids, or error
+    :return: pandas DataFrame of features and data, or error
     """
     access_token = creds['access_token_staging']
     features = [317]
