@@ -218,8 +218,15 @@ def connect_to_readysignal_features(access_token, features = None, start_date = 
             return req.json()
 
         # show feature's details
-        elif features and len(features) == 1 and details == True:
-            url = f'https://staging.app.readysignal.com/api/bank-of-mexico/feature/{features[0]}/details'
+        elif features and details == True:
+            feat_details = {}
+            for i in range(len(features)):
+                url = f'https://staging.app.readysignal.com/api/bank-of-mexico/feature/{features[i]}/details'
+                headers = {'Authorization': 'Bearer ' + str(access_token),
+                        'Accept': 'application/json'}
+                req = requests.get(url, headers=headers)
+                feat_details[features[i]] = list(req.json().values())[0]
+            return feat_details
 
         # show feature's information
         elif features:
