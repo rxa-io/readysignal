@@ -289,3 +289,24 @@ def get_feature_data(access_token, features, start_date, end_date):
     """
     conn_features = connect_to_readysignal_features(access_token, features, start_date, end_date)
     return conn_features
+
+def get_feature_data_pandas(access_token, features, start_date, end_date):
+    """
+    returns a feature(s)'s data as a Pandas DataFrame
+
+    :param access_token: individual identification for readysignal
+    :param type: string
+    :param features: list of Bank of Mexico feature_id(s)
+    :param type: list of integer(s)
+    :param start_date: start date for features
+    :param type: string in Y-m-d format    
+    :param end_date: end_date for features
+    :return: Pandas DataFrame of signal
+    """
+    
+    conn_features = connect_to_readysignal_features(access_token, features, start_date, end_date)
+    data = list(conn_features.values())
+    df = pd.DataFrame(columns = list(data[0][0].keys()))
+    for i in range(len(data[0])):
+        df.loc[len(df.index)] = list(df[0][i].values())
+    return df
