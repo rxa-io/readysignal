@@ -227,7 +227,7 @@ def connect_to_readysignal_features(access_token, features = None, start_date = 
 
         # list all Bank of Mexico features
         else:
-            url = f'https://staging.app.readysignal.com/api/bank-of-mexico/'
+            url = f'https://staging.app.readysignal.com/api/bank-of-mexico'
 
         headers = {'Authorization': 'Bearer ' + str(access_token),
                    'Accept': 'application/json'}
