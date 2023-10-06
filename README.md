@@ -5,7 +5,7 @@ Please direct all questions and/or recommendations to support@readysignal.com
 
 <br>
 
-## Table of Contents
+# Table of Contents
 * [Installation](#installation)
 ### Signal ID Specific
 * [List Signals](#list-signals)
@@ -18,6 +18,8 @@ Please direct all questions and/or recommendations to support@readysignal.com
 * [Show Features Data](#show-features-data)
 * [Show Features Data Detailed](#show-features-detailed-data)
 * [Features Data Output](#feature-data-outputs)
+
+<br>
 
 <br>
 
