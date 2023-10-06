@@ -5,6 +5,22 @@ Please direct all questions and/or recommendations to support@readysignal.com
 
 <br>
 
+## Table of Contents
+* [Installation](#installation)
+### Signal ID Specific
+* [List Signals](#list-signals)
+* [Signal Detatils](#signal-details)
+* [Signal Output](#signal-output)
+* [Delete Signal](#delete-signal)
+* [Auto Discover Feature](#auto-discover-feature)
+### Feature ID Specific
+* [Available Features List](#available-features-list)
+* [Show Features Data](#show-features-data)
+* [Show Features Data Detailed](#show-features-detailed-data)
+* [Features Data Output](#feature-data-outputs)
+
+<br>
+
 ## Installation
 The Ready Signal API Python library can be found here: https://pypi.org/project/readysignal/
 ```
@@ -21,21 +37,6 @@ Your signal ID is also visible within the URL of the "Manage Signal" page:
 ```
 ...readysignal.com/signal/SIGNAL_ID/manage
 ```
-
-## Table of Contents
-### Signal ID
-* [Setup](#setup)
-* [List Signals](#list-signals)
-* [Signal Detatils](#signal-details)
-* [Signal Output](#signal-output)
-* [Delete Signal](#delete-signal)
-* [Auto Discover Feature](#auto-discover-feature)
-### Feature ID
-* [Available Features List](#available-features-list)
-* [Show Features Data](#show-features-data)
-* [Show Features Data Detailed](#show-features-detailed-data)
-* [Features Data Output](#feature-data-outputs)
-
 <br>
 
 ### Setup
@@ -48,6 +49,9 @@ signal_id = 0  # this is your unique signal id number
 ```
 
 <br>
+
+## * Signal ID Specific *
+ <br>
 
 ### List Signals
 
@@ -299,6 +303,9 @@ Set `create_custom_features=0` to prevent Ready Signal from storing the input ta
 ```python
 rs.auto_discover(access_token, geo_grain, date_grain, filename=None, df=None, create_custom_features=1)
 ```
+
+<br>
+## * Feature ID Specific*
 
 ### Available Features List
 
