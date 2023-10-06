@@ -22,6 +22,20 @@ Your signal ID is also visible within the URL of the "Manage Signal" page:
 ...readysignal.com/signal/SIGNAL_ID/manage
 ```
 
+## Table of Contents
+### Signal ID
+* [Setup](#setup)
+* [List Signals](#list-signals)
+* [Signal Detatils](#signal-details)
+* [Signal Output](#signal-output)
+* [Delete Signal](#delete-signal)
+* [Auto Discover Feature](#auto-discover-feature)
+### Feature ID
+* [Available Features List](#available-features-list)
+* [Show Features Data](#show-features-data)
+* [Show Features Data Detailed](#show-features-detailed-data)
+* [Features Data Output](#feature-data-outputs)
+
 <br>
 
 ### Setup
@@ -417,7 +431,8 @@ rs.show_feature(access_token, feat_list)
       'deleted_at': None}]}],
   'deleted_at': None,
   'created_at': '2023-07-10T17:40:50.000000Z',
-  'updated_at': '2023-09-19T18:02:05.000000Z'}}
+  'updated_at': '2023-09-19T18:02:05.000000Z'}
+  }
 ```
 <br>
 
@@ -426,7 +441,7 @@ There are two different ways to receive your feature(s) data:
 * JSON
 * Pandas DataFrame
 
-You will need your ```access_token```,```feature``` list of feature ids along with a ```start_date``` and ```end_date``` indicating the date range from the features you'd like to view
+You will need your ```access_token```,```feature``` list of feature ids along with a ```start_date``` and ```end_date``` indicating the date range of the features
 
 ### JSON
 ```python
