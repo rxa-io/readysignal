@@ -1,10 +1,6 @@
 import requests
 import pandas as pd
 import time
-import json
-import pymysql
-import config
-import configparser
 
 
 def connect_to_readysignal(access_token, signal_id=None, output=False):
@@ -245,7 +241,7 @@ def connect_to_readysignal_features(
     try:
         # get feature(s) data
         if features and start_date and end_date:
-            url = f"https://staging.app.readysignal.com/api/bank-of-mexico/data"
+            url = f"https://app.readysignal.com/api/bank-of-mexico/data"
             headers = {
                 "Authorization": "Bearer " + str(access_token),
                 "Accept": "application/json",
@@ -264,7 +260,7 @@ def connect_to_readysignal_features(
         elif features and details == True:
             feat_details = {}
             for i in range(len(features)):
-                url = f"https://staging.app.readysignal.com/api/bank-of-mexico/feature/{features[i]}/details"
+                url = f"https://app.readysignal.com/api/bank-of-mexico/feature/{features[i]}/details"
                 headers = {
                     "Authorization": "Bearer " + str(access_token),
                     "Accept": "application/json",
@@ -277,7 +273,7 @@ def connect_to_readysignal_features(
         elif features:
             feat_info = {}
             for i in range(len(features)):
-                url = f"https://staging.app.readysignal.com/api/bank-of-mexico/feature/{features[i]}"
+                url = f"https://app.readysignal.com/api/bank-of-mexico/feature/{features[i]}"
                 headers = {
                     "Authorization": "Bearer " + str(access_token),
                     "Accept": "application/json",
@@ -288,7 +284,7 @@ def connect_to_readysignal_features(
 
         # list all Bank of Mexico features
         else:
-            url = f"https://staging.app.readysignal.com/api/bank-of-mexico"
+            url = f"https://app.readysignal.com/api/bank-of-mexico"
 
         headers = {
             "Authorization": "Bearer " + str(access_token),
