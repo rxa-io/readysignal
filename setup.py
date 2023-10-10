@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="readysignal",
-    version="1.1.0",
+    version="1.2.0",
     author="Jess Brown",
     author_email="jess.brown@rxa.io",
     description="The API for readysignal.com",
