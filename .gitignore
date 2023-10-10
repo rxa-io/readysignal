@@ -10,3 +10,6 @@ credentials.cpython-36.pyc
 
 # other
 .idea
+
+# venv
+venv/
