@@ -87,10 +87,6 @@ def test_signal_to_csv():
 
 def test_auto_discover():
     access_token = creds["access_token"]
-    # response = auto_discover(access_token, 'Country', filename='../tests/country.csv')
-
-    # assert response.status_code == 200
-
     response = auto_discover(
         access_token, "Country", df=pd.read_csv("tests/country.csv"), date_grain="Month"
     )
