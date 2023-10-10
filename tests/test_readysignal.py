@@ -39,7 +39,7 @@ def test_list_signals():
     signals = list_signals(access_token)
 
     assert isinstance(signals, dict)
-    # assert 'data' in signals.keys()
+    assert 'data' in signals.keys()
 
     return signals
 
