@@ -1,3 +1,15 @@
+ifeq ($(OS), Windows_NT)
+	BIN = Scripts
+	OS_PYTHON = python
+	ACTIVATE = activate.bat
+else
+	BIN = bin
+	OS_PYTHON = python3
+	ACTIVATE = activate
+endif
+
+PYTHON = $(OS_PYTHON)
+
 .PHONY: tests
 
 html:
@@ -9,8 +21,8 @@ html:
 	rm -r docs/html
 
 release:
-	python -m build
+	$(PYTHON) -m build
 
 tests:
 	# Running unittests
-	@python -m unittest
+	@$(PYTHON) -m unittest
