@@ -233,11 +233,6 @@ def connect_to_readysignal_features(
     :param type: boolean
     :return: request response as json
     """
-    # bom_features = []
-    # for f in features:
-    #     if f not in bom_features:
-    #         print(f'{str(f)} is not a feature_id in this dataset')
-
     try:
         # get feature(s) data
         if features and start_date and end_date:
