@@ -307,6 +307,7 @@ rs.auto_discover(access_token, geo_grain, date_grain, filename=None, df=None, cr
 ```
 
 <br>
+
 ## * Feature ID Specific*
 
 ### Available Features List
