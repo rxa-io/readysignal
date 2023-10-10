@@ -93,7 +93,9 @@ def test_auto_discover():
 
     # assert response.status_code == 200
 
-    response = auto_discover(access_token, "Country", df=pd.read_csv("tests/country.csv"), date_grain="Month")
+    response = auto_discover(
+        access_token, "Country", df=pd.read_csv("tests/country.csv"), date_grain="Month"
+    )
 
     assert response.status_code == 200
     return response
@@ -210,7 +212,7 @@ test_get_signal()
 print(test_get_signal_pandas())
 test_signal_to_csv()
 auto_disc = test_auto_discover().json()
-test_delete_signal(auto_disc['signal_id'])
+test_delete_signal(auto_disc["signal_id"])
 test_connect_to_readysignal_features()
 test_get_features_list()
 test_show_feature()

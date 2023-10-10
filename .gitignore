@@ -10,6 +10,7 @@ credentials.cpython-36.pyc
 
 # other
 .idea
+tests/test1.csv
 
 # venv
 venv/
