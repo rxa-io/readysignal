@@ -17,6 +17,7 @@ from readysignal import (
 )
 import pandas as pd
 
+
 def test_connect_to_readysignal():
     """
     tests the API connection to Ready Signal
@@ -39,7 +40,7 @@ def test_list_signals():
     signals = list_signals(access_token)
 
     assert isinstance(signals, dict)
-    assert 'data' in signals.keys()
+    assert "data" in signals.keys()
 
     return signals
 
@@ -158,7 +159,6 @@ def test_show_feature_detailed():
     access_token = creds["access_token"]
     feature = [317]
     feat_details = show_feature_detailed(access_token, feature)
-    feat_dict = list(feat_details.values())[0]
 
     assert isinstance(feat_details, dict)
 
@@ -194,7 +194,6 @@ def test_feature_data_pandas():
     end_date = "2021-12-31"
     df = get_feature_data_pandas(access_token, features, start_date, end_date)
 
-    # assert isinstance(df, pd.DataFrame)
     assert isinstance(df, pd.core.frame.DataFrame)
     return df
 
