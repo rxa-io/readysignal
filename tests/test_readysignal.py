@@ -16,8 +16,6 @@ from readysignal import (
     get_feature_data_pandas,
 )
 import pandas as pd
-import time
-
 
 def test_connect_to_readysignal():
     """
