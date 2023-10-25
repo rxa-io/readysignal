@@ -384,7 +384,7 @@ Using your ```access_token``` and a ```feature``` list containing the feature id
 
 ```python
 feat_list = [317]
-rs.show_feature(access_token, feat_list)
+rs.show_feature_detailed(access_token, feat_list)
 ```
 
 #### Example Output
