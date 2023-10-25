@@ -393,8 +393,8 @@ Using your ```access_token``` and a ```feature``` list containing the feature id
 *Reminder: Regardless of the number of features (1 or many), they must be in a list.*
 
 ```python
-feature = [317]
-rs.show_feature_detailed(access_token, feature)
+feat_list = [317]
+rs.show_feature_detailed(access_token, feat_list)
 ```
 
 #### Example Output
