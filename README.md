@@ -314,7 +314,7 @@ rs.auto_discover(access_token, geo_grain, date_grain, filename=None, df=None, cr
 ### Syntax
 **A note on parameter syntax:**
 * ```access_token```: a string of users access token
-* ```feature```: a list containing the feature(s) to use. Regardless of if it is just 1 feature or many, it MUST be put in a list [].
+* ```feature```: a list containing the feature(s) to use. Regardless of if it is just 1 feature or many, it MUST be put in a list
 * ```start_date```: a string in the format of 'YYY-MM-DD'
 * ```end_date```: a string in the format of 'YYY-MM-DD'
 
