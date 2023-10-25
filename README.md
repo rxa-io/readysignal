@@ -14,6 +14,7 @@ Please direct all questions and/or recommendations to support@readysignal.com
 * [Delete Signal](#delete-signal)
 * [Auto Discover Feature](#auto-discover-feature)
 ### Feature ID Specific
+* [Syntax Note](#syntax)
 * [Available Features List](#available-features-list)
 * [Show Features Data](#show-features-data)
 * [Show Features Data Detailed](#show-features-detailed-data)
@@ -310,6 +311,13 @@ rs.auto_discover(access_token, geo_grain, date_grain, filename=None, df=None, cr
 
 ## * Feature ID Specific*
 
+### Syntax
+**A note on parameter syntax:**
+* ```access_token```: a string of users access token
+* ```feature```: a list containing the feature(s) to use. Regardless of if it is just 1 feature or many, it MUST be put in a list
+* ```start_date```: a string in the format of 'YYY-MM-DD'
+* ```end_date```: a string in the format of 'YYY-MM-DD'
+
 ### Available Features List
 
 Using your ```access_token```, you can view all the features and an overview of their data that can be used with the feature specific functions.
@@ -346,11 +354,12 @@ rs.get_features_list(access_token)
 
 ### Show Feature(s) Data
 
-Using your ```access_token``` and a ```feature``` list containing the feature id(s), see an overview of the data for those specific features.
+Using your ```access_token``` and a ```feature``` list containing the feature id(s), see an overview of the data for those specific features. <br/>
+*Reminder: Regardless of the number of features (1 or many), they must be in a list.*
 
 ```python
-feat_list = [317, 318]
-rs.show_feature(access_token, feat_list)
+feature = [317, 318]
+rs.show_feature(access_token, feature)
 ```
 
 #### Example Output
@@ -380,11 +389,12 @@ rs.show_feature(access_token, feat_list)
 
 ### Show Feature(s) Detailed Data
 
-Using your ```access_token``` and a ```feature``` list containing the feature id(s), see in depth data for those specific features.
+Using your ```access_token``` and a ```feature``` list containing the feature id(s), see in depth data for those specific features. <br/>
+*Reminder: Regardless of the number of features (1 or many), they must be in a list.*
 
 ```python
-feat_list = [317]
-rs.show_feature(access_token, feat_list)
+feature = [317]
+rs.show_feature_detailed(access_token, feature)
 ```
 
 #### Example Output
@@ -451,11 +461,17 @@ There are two different ways to receive your feature(s) data:
 * JSON
 * Pandas DataFrame
 
-You will need your ```access_token```,```feature``` list of feature ids along with a ```start_date``` and ```end_date``` indicating the date range of the features
+You will need your ```access_token```,```feature``` list of feature ids along with a ```start_date``` and ```end_date``` indicating the date range of the features. <br/>
+*Reminder: Regardless of the number of features (1 or many), they must be in a list.* <br/>
+*Reminder: ```start_date``` and ```end_date``` must be in the format of 'YYY-MM-DD'.*
+
 
 ### JSON
 ```python
 # get feature data as json
+feature = [317]
+start_date = '2021-01-01'
+end_date = '2021-12-31'
 rs.get_feature_data(access_token, feature, start_date, end_date)
 ```
 #### Example Output
@@ -485,6 +501,7 @@ rs.get_feature_data(access_token, feature, start_date, end_date)
 ### Pandas DataFrame
 ```python
 # get feature data as Pandas DataFrame
+feature = [317]
 rs.get_feature_data_pandas(access_token, feature, start_date, end_date)
 ```
 #### Example
