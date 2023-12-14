@@ -216,7 +216,7 @@ def auto_discover(
 
 
 def connect_to_readysignal_features(
-    access_token, features=None, start_date=None, end_date=None, details=False
+    access_token, bank_name, features=None, start_date=None, end_date=None, details=False
 ):
     """
     Pull data from Bank of Mexico datasets based on feature_id
@@ -236,7 +236,7 @@ def connect_to_readysignal_features(
     try:
         # get feature(s) data
         if features and start_date and end_date:
-            url = f"https://app.readysignal.com/api/bank-of-mexico/data"
+            url = f"https://app.readysignal.com/api/bank-of-"+bank_name+"/data"
             headers = {
                 "Authorization": "Bearer " + str(access_token),
                 "Accept": "application/json",
@@ -255,7 +255,7 @@ def connect_to_readysignal_features(
         elif features and details == True:
             feat_details = {}
             for i in range(len(features)):
-                url = f"https://app.readysignal.com/api/bank-of-mexico/feature/{features[i]}/details"
+                url = f"https://app.readysignal.com/api/bank-of-"+bank_name+"/feature/{features[i]}/details"
                 headers = {
                     "Authorization": "Bearer " + str(access_token),
                     "Accept": "application/json",
@@ -268,7 +268,7 @@ def connect_to_readysignal_features(
         elif features:
             feat_info = {}
             for i in range(len(features)):
-                url = f"https://app.readysignal.com/api/bank-of-mexico/feature/{features[i]}"
+                url = f"https://app.readysignal.com/api/bank-of-"+bank_name+"/feature/{features[i]}"
                 headers = {
                     "Authorization": "Bearer " + str(access_token),
                     "Accept": "application/json",
@@ -279,7 +279,7 @@ def connect_to_readysignal_features(
 
         # list all Bank of Mexico features
         else:
-            url = f"https://app.readysignal.com/api/bank-of-mexico"
+            url = f"https://app.readysignal.com/api/bank-of-"+bank_name+""
 
         headers = {
             "Authorization": "Bearer " + str(access_token),
@@ -294,7 +294,7 @@ def connect_to_readysignal_features(
         return
 
 
-def get_features_list(access_token):
+def get_features_list(access_token, bank_name):
     """
     List Bank of Mexico features available in the system
 
@@ -302,11 +302,11 @@ def get_features_list(access_token):
     :param type: string
     :return: json of bank of mexico features
     """
-    conn_features = connect_to_readysignal_features(access_token)
+    conn_features = connect_to_readysignal_features(access_token, bank_name)
     return conn_features
 
 
-def show_feature(access_token, features):
+def show_feature(access_token,bank_name, features):
     """
     Show information on one feature
 
@@ -315,11 +315,11 @@ def show_feature(access_token, features):
     :param features: list of
     :return: json of bank of feature
     """
-    conn_features = connect_to_readysignal_features(access_token, features)
+    conn_features = connect_to_readysignal_features(access_token, bank_name, features)
     return conn_features
 
 
-def show_feature_detailed(access_token, features):
+def show_feature_detailed(access_token, bank_name, features):
     """
     Show detailed information about a specific feature
 
@@ -328,12 +328,12 @@ def show_feature_detailed(access_token, features):
     :return: json of a feature's details
     """
     conn_features = connect_to_readysignal_features(
-        access_token, features, details=True
+        access_token, bank_name, features, details=True
     )
     return conn_features
 
 
-def get_feature_data(access_token, features, start_date, end_date):
+def get_feature_data(access_token, bank_name, features, start_date, end_date):
     """
     Filter Bank Of Mexico data by certain dates and feature_ids.
 
@@ -348,12 +348,12 @@ def get_feature_data(access_token, features, start_date, end_date):
     :return: json of bank of mexico features data
     """
     conn_features = connect_to_readysignal_features(
-        access_token, features, start_date, end_date
+        access_token, bank_name, features, start_date, end_date
     )
     return conn_features
 
 
-def get_feature_data_pandas(access_token, features, start_date, end_date):
+def get_feature_data_pandas(access_token, bank_name, features, start_date, end_date):
     """
     returns a feature(s)'s data as a Pandas DataFrame
 
@@ -368,7 +368,7 @@ def get_feature_data_pandas(access_token, features, start_date, end_date):
     """
 
     conn_features = connect_to_readysignal_features(
-        access_token, features, start_date, end_date
+        access_token, bank_name, features, start_date, end_date
     )
     data = list(conn_features.values())
     df = pd.DataFrame(columns=list(data[0][0].keys()))
