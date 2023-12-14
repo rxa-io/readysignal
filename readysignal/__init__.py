@@ -223,7 +223,9 @@ def connect_to_readysignal_features(
 
     :param access_token: individual identification for readysignal
     :param type: string
-    :param features: list of Bank of Mexico feature_id(s)
+    :param bank_name: country name of bank
+    :param type: string
+    :param features: list of feature_id(s)
     :param type: list of integer(s)
     :param start_date: start date for features
     :param type: string in Y-m-d format
@@ -233,6 +235,7 @@ def connect_to_readysignal_features(
     :param type: boolean
     :return: request response as json
     """
+    bank_name = bank_name.lower()
     try:
         # get feature(s) data
         if features and start_date and end_date:
@@ -300,19 +303,24 @@ def get_features_list(access_token, bank_name):
 
     :param access_token: individual identification for readysignal
     :param type: string
+    :param bank_name: country name of bank
+    :param type: string
     :return: json of bank of mexico features
     """
     conn_features = connect_to_readysignal_features(access_token, bank_name)
     return conn_features
 
 
-def show_feature(access_token,bank_name, features):
+def show_feature(access_token, bank_name, features):
     """
     Show information on one feature
 
     :param access_token: individual identification for readysignal
     :param type: string
-    :param features: list of
+    :param bank_name: country name of bank
+    :param type: string
+    :param features: list of feature_id(s)
+    :param type: list of integer(s)
     :return: json of bank of feature
     """
     conn_features = connect_to_readysignal_features(access_token, bank_name, features)
@@ -325,6 +333,10 @@ def show_feature_detailed(access_token, bank_name, features):
 
     :param access_token: individual identification for readysignal
     :param type: string
+    :param bank_name: country name of bank
+    :param type: string
+    :param features: list of feature_id(s)
+    :param type: list of integer(s)
     :return: json of a feature's details
     """
     conn_features = connect_to_readysignal_features(
@@ -339,7 +351,9 @@ def get_feature_data(access_token, bank_name, features, start_date, end_date):
 
     :param access_token: individual identification for readysignal
     :param type: string
-    :param features: list of Bank of Mexico feature_id(s)
+    :param bank_name: country name of bank
+    :param type: string
+    :param features: list of feature_id(s)
     :param type: list of integer(s)
     :param start_date: start date for features
     :param type: string in Y-m-d format
@@ -359,7 +373,9 @@ def get_feature_data_pandas(access_token, bank_name, features, start_date, end_d
 
     :param access_token: individual identification for readysignal
     :param type: string
-    :param features: list of Bank of Mexico feature_id(s)
+    :param bank_name: country name of bank
+    :param type: string
+    :param features: list of feature_id(s)
     :param type: list of integer(s)
     :param start_date: start date for features
     :param type: string in Y-m-d format
