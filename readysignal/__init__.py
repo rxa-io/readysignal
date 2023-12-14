@@ -224,7 +224,7 @@ def connect_to_readysignal_features(
     details=False,
 ):
     """
-    Pull data from Bank of Mexico datasets based on feature_id
+    Pull data from specified bank datasets based on feature_id
 
     :param access_token: individual identification for readysignal
     :param type: string
@@ -317,7 +317,7 @@ def connect_to_readysignal_features(
 
 def get_features_list(access_token, bank_name):
     """
-    List Bank of Mexico features available in the system
+    List bank features available in the system for specified bank
 
     :param access_token: individual identification for readysignal
     :param type: string
@@ -365,7 +365,7 @@ def show_feature_detailed(access_token, bank_name, features):
 
 def get_feature_data(access_token, bank_name, features, start_date, end_date):
     """
-    Filter Bank Of Mexico data by certain dates and feature_ids.
+    Filter specified bank data by certain dates and feature_ids.
 
     :param access_token: individual identification for readysignal
     :param type: string
