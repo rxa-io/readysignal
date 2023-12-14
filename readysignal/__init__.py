@@ -239,7 +239,7 @@ def connect_to_readysignal_features(
     try:
         # get feature(s) data
         if features and start_date and end_date:
-            url = f"https://staging.app.readysignal.com/api/bank-of-"+bank_name+"/data"
+            url = "https://staging.app.readysignal.com/api/bank-of-"+bank_name+"/data"
             headers = {
                 "Authorization": "Bearer " + str(access_token),
                 "Accept": "application/json",
@@ -255,10 +255,10 @@ def connect_to_readysignal_features(
             return req.json()
 
         # show feature's details
-        elif features and details == True:
+        elif features and details:
             feat_details = {}
             for i in range(len(features)):
-                url = f"https://staging.app.readysignal.com/api/bank-of-"+bank_name+"/feature/{features[i]}/details"
+                url = "https://staging.app.readysignal.com/api/bank-of-"+bank_name+"/feature/"+str(features[i])+"/details"
                 headers = {
                     "Authorization": "Bearer " + str(access_token),
                     "Accept": "application/json",
@@ -271,7 +271,7 @@ def connect_to_readysignal_features(
         elif features:
             feat_info = {}
             for i in range(len(features)):
-                url = f"https://staging.app.readysignal.com/api/bank-of-"+bank_name+"/feature/{features[i]}"
+                url = "https://staging.app.readysignal.com/api/bank-of-"+bank_name+"/feature/"+str(features[i])
                 headers = {
                     "Authorization": "Bearer " + str(access_token),
                     "Accept": "application/json",
@@ -282,7 +282,7 @@ def connect_to_readysignal_features(
 
         # list all Bank of Mexico features
         else:
-            url = f"https://staging.app.readysignal.com/api/bank-of-"+bank_name+""
+            url = "https://staging.app.readysignal.com/api/bank-of-"+bank_name
 
         headers = {
             "Authorization": "Bearer " + str(access_token),
