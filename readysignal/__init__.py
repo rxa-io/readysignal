@@ -240,12 +240,14 @@ def connect_to_readysignal_features(
     :param type: boolean
     :return: request response as json
     """
-    bank_name = bank_name.lower()
+    lower_bank_name = bank_name.lower()
     try:
         # get feature(s) data
         if features and start_date and end_date:
             url = (
-                "https://staging.app.readysignal.com/api/bank-of-" + bank_name + "/data"
+                "https://staging.app.readysignal.com/api/bank-of-"
+                + lower_bank_name
+                + "/data"
             )
             headers = {
                 "Authorization": "Bearer " + str(access_token),
@@ -267,7 +269,7 @@ def connect_to_readysignal_features(
             for i in range(len(features)):
                 url = (
                     "https://staging.app.readysignal.com/api/bank-of-"
-                    + bank_name
+                    + lower_bank_name
                     + "/feature/"
                     + str(features[i])
                     + "/details"
@@ -286,7 +288,7 @@ def connect_to_readysignal_features(
             for i in range(len(features)):
                 url = (
                     "https://staging.app.readysignal.com/api/bank-of-"
-                    + bank_name
+                    + lower_bank_name
                     + "/feature/"
                     + str(features[i])
                 )
@@ -294,13 +296,14 @@ def connect_to_readysignal_features(
                     "Authorization": "Bearer " + str(access_token),
                     "Accept": "application/json",
                 }
+                print(url)
                 req = requests.get(url, headers=headers)
                 feat_info[features[i]] = list(req.json().values())[0]
             return feat_info
 
         # list all Bank of Mexico features
         else:
-            url = "https://staging.app.readysignal.com/api/bank-of-" + bank_name
+            url = "https://staging.app.readysignal.com/api/bank-of-" + lower_bank_name
 
         headers = {
             "Authorization": "Bearer " + str(access_token),
