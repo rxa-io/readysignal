@@ -295,7 +295,6 @@ def connect_to_readysignal_features(
                     "Authorization": "Bearer " + str(access_token),
                     "Accept": "application/json",
                 }
-                print(url)
                 req = requests.get(url, headers=headers)
                 feat_info[features[i]] = list(req.json().values())[0]
             return feat_info
