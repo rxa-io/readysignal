@@ -246,7 +246,7 @@ def connect_to_readysignal_features(
         # get feature(s) data
         if features and start_date and end_date:
             url = (
-                "https://staging.app.readysignal.com/api/bank-of-"
+                "https://app.readysignal.com/api/bank-of-"
                 + lower_bank_name
                 + "/data"
             )
@@ -269,7 +269,7 @@ def connect_to_readysignal_features(
             feat_details = {}
             for i in range(len(features)):
                 url = (
-                    "https://staging.app.readysignal.com/api/bank-of-"
+                    "https://app.readysignal.com/api/bank-of-"
                     + lower_bank_name
                     + "/feature/"
                     + str(features[i])
@@ -288,7 +288,7 @@ def connect_to_readysignal_features(
             feat_info = {}
             for i in range(len(features)):
                 url = (
-                    "https://staging.app.readysignal.com/api/bank-of-"
+                    "https://app.readysignal.com/api/bank-of-"
                     + lower_bank_name
                     + "/feature/"
                     + str(features[i])
@@ -303,7 +303,7 @@ def connect_to_readysignal_features(
 
         # list all bank features
         else:
-            url = "https://staging.app.readysignal.com/api/bank-of-" + lower_bank_name
+            url = "https://app.readysignal.com/api/bank-of-" + lower_bank_name
 
         headers = {
             "Authorization": "Bearer " + str(access_token),
