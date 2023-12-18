@@ -3,7 +3,7 @@ import pandas as pd
 import time
 
 
-def connect_to_readysignal(access_token, signal_id=None, output=False):
+def connect_to_readysignal(access_token, signal_id=None, output=False, proxy_dict=None):
     """
     creates connection to correct API URL to list signals, show signal
     details, and return complete signal data
@@ -22,7 +22,7 @@ def connect_to_readysignal(access_token, signal_id=None, output=False):
                 "Accept": "application/json",
             }
 
-            req = requests.get(url, headers=headers)
+            req = requests.get(url, headers=headers, proxies=proxy_dict)
 
             if req.status_code != 200:
                 print(
@@ -37,7 +37,7 @@ def connect_to_readysignal(access_token, signal_id=None, output=False):
                 next_page = requests.get(
                     f"http://app.readysignal.com/api/signals/{str(signal_id)}/output",
                     headers=headers,
-                    params={"page": page},
+                    params={"page": page}, proxies=proxy_dict
                 ).json()
                 resp["data"] += next_page["data"]
                 time.sleep(1)
@@ -56,7 +56,7 @@ def connect_to_readysignal(access_token, signal_id=None, output=False):
             "Authorization": "Bearer " + str(access_token),
             "Accept": "application/json",
         }
-        req = requests.get(url, headers=headers)
+        req = requests.get(url, headers=headers, proxies=proxy_dict)
 
         return req.json()
     except Exception as e:
@@ -64,50 +64,50 @@ def connect_to_readysignal(access_token, signal_id=None, output=False):
         return
 
 
-def list_signals(access_token):
+def list_signals(access_token, proxy_dict=None):
     """
     lists all the signals associated with the user's access token
     :param access_token: user's unique access token
     :return: json of signals
     """
-    conn = connect_to_readysignal(access_token)
+    conn = connect_to_readysignal(access_token, proxy_dict=proxy_dict)
     return conn
 
 
-def get_signal_details(access_token, signal_id):
+def get_signal_details(access_token, signal_id, proxy_dict=None):
     """
     shows the details for a specific signal
     :param access_token: user's unique access token
     :param signal_id: signal's unique ID number
     :return: json of signal details
     """
-    conn = connect_to_readysignal(access_token, signal_id)
+    conn = connect_to_readysignal(access_token, signal_id, proxy_dict=proxy_dict)
     return conn
 
 
-def get_signal(access_token, signal_id):
+def get_signal(access_token, signal_id, proxy_dict=None):
     """
     returns a signal's data in json format
     :param access_token: user's unique access token
     :param signal_id: signal's unique ID number
     :return: json of signal
     """
-    conn = connect_to_readysignal(access_token, signal_id, output=True)
+    conn = connect_to_readysignal(access_token, signal_id, proxy_dict=proxy_dict, output=True)
     return conn
 
 
-def get_signal_pandas(access_token, signal_id):
+def get_signal_pandas(access_token, signal_id, proxy_dict=None):
     """
     returns a signal's data as a Pandas DataFrame
     :param access_token: user's unique access token
     :param signal_id: signal's unique ID number
     :return: Pandas DataFrame of signal
     """
-    conn = connect_to_readysignal(access_token, signal_id, output=True)
+    conn = connect_to_readysignal(access_token, signal_id, proxy_dict=proxy_dict, output=True)
     return pd.DataFrame.from_dict(conn)
 
 
-def signal_to_csv(access_token, signal_id, file_name):
+def signal_to_csv(access_token, signal_id, file_name, proxy_dict=None):
     """
     returns a signal's data as a Pandas DataFrame
     :param file_name: name of file to write signal output to
@@ -120,11 +120,11 @@ def signal_to_csv(access_token, signal_id, file_name):
     elif "." not in file_name:
         file_name += ".csv"
 
-    output = get_signal_pandas(access_token, signal_id)
+    output = get_signal_pandas(access_token, signal_id, proxy_dict=proxy_dict)
     output.to_csv(file_name, index=False)
 
 
-def delete_signal(access_token, signal_id):
+def delete_signal(access_token, signal_id, proxy_dict=None):
     """
     USE WITH CAUTION. deletes a signal from the Ready Signal platform
     :param access_token: user's unique access token
@@ -137,7 +137,7 @@ def delete_signal(access_token, signal_id):
         "Authorization": "Bearer " + str(access_token),
         "Accept": "application/json",
     }
-    req = requests.delete(url, headers=headers)
+    req = requests.delete(url, proxies=proxy_dict, headers=headers)
     print(req.json())
     return req
 
@@ -146,6 +146,7 @@ def auto_discover(
     access_token,
     geo_grain,
     date_grain,
+    proxy_dict=None,
     filename=None,
     df=None,
     create_custom_features=1,
@@ -188,6 +189,7 @@ def auto_discover(
             },
             files={"file": open(filename, "rb")},
             headers={"Authorization": "Bearer " + str(access_token)},
+            proxies=proxy_dict
         )
     elif df is not None:
         url = base_url + "/array"
@@ -200,7 +202,7 @@ def auto_discover(
         }
 
         req = requests.post(
-            url, json=body, headers={"Authorization": "Bearer " + str(access_token)}
+            url, json=body, headers={"Authorization": "Bearer " + str(access_token)}, proxies=proxy_dict
         )
 
     else:
