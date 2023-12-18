@@ -37,7 +37,8 @@ def connect_to_readysignal(access_token, signal_id=None, output=False, proxy_dic
                 next_page = requests.get(
                     f"http://app.readysignal.com/api/signals/{str(signal_id)}/output",
                     headers=headers,
-                    params={"page": page}, proxies=proxy_dict
+                    params={"page": page},
+                    proxies=proxy_dict,
                 ).json()
                 resp["data"] += next_page["data"]
                 time.sleep(1)
@@ -92,7 +93,9 @@ def get_signal(access_token, signal_id, proxy_dict=None):
     :param signal_id: signal's unique ID number
     :return: json of signal
     """
-    conn = connect_to_readysignal(access_token, signal_id, proxy_dict=proxy_dict, output=True)
+    conn = connect_to_readysignal(
+        access_token, signal_id, proxy_dict=proxy_dict, output=True
+    )
     return conn
 
 
@@ -103,7 +106,9 @@ def get_signal_pandas(access_token, signal_id, proxy_dict=None):
     :param signal_id: signal's unique ID number
     :return: Pandas DataFrame of signal
     """
-    conn = connect_to_readysignal(access_token, signal_id, proxy_dict=proxy_dict, output=True)
+    conn = connect_to_readysignal(
+        access_token, signal_id, proxy_dict=proxy_dict, output=True
+    )
     return pd.DataFrame.from_dict(conn)
 
 
@@ -189,7 +194,7 @@ def auto_discover(
             },
             files={"file": open(filename, "rb")},
             headers={"Authorization": "Bearer " + str(access_token)},
-            proxies=proxy_dict
+            proxies=proxy_dict,
         )
     elif df is not None:
         url = base_url + "/array"
@@ -202,7 +207,10 @@ def auto_discover(
         }
 
         req = requests.post(
-            url, json=body, headers={"Authorization": "Bearer " + str(access_token)}, proxies=proxy_dict
+            url,
+            json=body,
+            headers={"Authorization": "Bearer " + str(access_token)},
+            proxies=proxy_dict,
         )
 
     else:
@@ -245,11 +253,7 @@ def connect_to_readysignal_features(
     try:
         # get feature(s) data
         if features and start_date and end_date:
-            url = (
-                "https://app.readysignal.com/api/bank-of-"
-                + lower_bank_name
-                + "/data"
-            )
+            url = "https://app.readysignal.com/api/bank-of-" + lower_bank_name + "/data"
             headers = {
                 "Authorization": "Bearer " + str(access_token),
                 "Accept": "application/json",
