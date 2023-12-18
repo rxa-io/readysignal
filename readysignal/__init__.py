@@ -69,6 +69,7 @@ def list_signals(access_token, proxy_dict=None):
     """
     lists all the signals associated with the user's access token
     :param access_token: user's unique access token
+    :param proxy_dict: dictionary of the protocol to the proxy url
     :return: json of signals
     """
     conn = connect_to_readysignal(access_token, proxy_dict=proxy_dict)
@@ -80,6 +81,7 @@ def get_signal_details(access_token, signal_id, proxy_dict=None):
     shows the details for a specific signal
     :param access_token: user's unique access token
     :param signal_id: signal's unique ID number
+    :param proxy_dict: dictionary of the protocol to the proxy url
     :return: json of signal details
     """
     conn = connect_to_readysignal(access_token, signal_id, proxy_dict=proxy_dict)
@@ -91,6 +93,7 @@ def get_signal(access_token, signal_id, proxy_dict=None):
     returns a signal's data in json format
     :param access_token: user's unique access token
     :param signal_id: signal's unique ID number
+    :param proxy_dict: dictionary of the protocol to the proxy url
     :return: json of signal
     """
     conn = connect_to_readysignal(
@@ -104,6 +107,7 @@ def get_signal_pandas(access_token, signal_id, proxy_dict=None):
     returns a signal's data as a Pandas DataFrame
     :param access_token: user's unique access token
     :param signal_id: signal's unique ID number
+    :param proxy_dict: dictionary of the protocol to the proxy url
     :return: Pandas DataFrame of signal
     """
     conn = connect_to_readysignal(
@@ -118,6 +122,7 @@ def signal_to_csv(access_token, signal_id, file_name, proxy_dict=None):
     :param file_name: name of file to write signal output to
     :param access_token: user's unique access token
     :param signal_id: signal's unique ID number
+    :param proxy_dict: dictionary of the protocol to the proxy url
     :return: Pandas DataFrame of signal
     """
     if "." in file_name and ".csv" not in file_name:
@@ -134,6 +139,7 @@ def delete_signal(access_token, signal_id, proxy_dict=None):
     USE WITH CAUTION. deletes a signal from the Ready Signal platform
     :param access_token: user's unique access token
     :param signal_id: signal's unique ID number
+    :param proxy_dict: dictionary of the protocol to the proxy url
     :return: requests response object
     """
     url = f"http://app.readysignal.com/api/signals/{str(signal_id)}"
@@ -162,6 +168,7 @@ def auto_discover(
     :param access_token: user's unique access token
     :param geo_grain: geographic grain of data upload: "State" or "Country"
     :param date_grain: date grain of data upload: "Day" or "Month"
+    :param proxy_dict: dictionary of the protocol to the proxy url
     :param filename: if using file upload, filename. Accepted file formats: .CSV or .XLSX. Column naming schema should
     be "Date" (YYYY-MM-DD), "State" (MI) if geo_grain="State", "Value" (int or float, no strings).
     Not to be used with 'df'
