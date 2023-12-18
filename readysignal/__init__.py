@@ -208,7 +208,6 @@ def auto_discover(
             'Missing data source, please provide "filename" as filepath or "df" as Pandas dataframe'
         )
 
-    print(req.json())
     return req
 
 
@@ -301,7 +300,7 @@ def connect_to_readysignal_features(
                 feat_info[features[i]] = list(req.json().values())[0]
             return feat_info
 
-        # list all Bank of Mexico features
+        # list all bank features
         else:
             url = "https://staging.app.readysignal.com/api/bank-of-" + lower_bank_name
 
@@ -326,7 +325,7 @@ def get_features_list(access_token, bank_name):
     :param type: string
     :param bank_name: country name of bank
     :param type: string
-    :return: json of bank of mexico features
+    :return: json of bank features
     """
     conn_features = connect_to_readysignal_features(access_token, bank_name)
     return conn_features
@@ -380,7 +379,7 @@ def get_feature_data(access_token, bank_name, features, start_date, end_date):
     :param type: string in Y-m-d format
     :param end_date: end_date for features
     :param type: string in Y-m-d format
-    :return: json of bank of mexico features data
+    :return: json of bank features data
     """
     conn_features = connect_to_readysignal_features(
         access_token, bank_name, features, start_date, end_date
