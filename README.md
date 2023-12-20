@@ -51,6 +51,29 @@ access_token = "your access token"
 signal_id = 0  # this is your unique signal id number
 ```
 
+#### Optional: Proxy URL
+
+It is optional to include proxy URL(s) in your functions. The setup for proxy URL(s) is shown below, and it must be in a dictionary format. If username nand password are required too, an example is shown below:
+
+```python
+# no username and password required
+proxy_info = {
+    "http": "http://your_proxy_address:your_proxy_port",
+    "https": "https://your_proxy_address:your_proxy_port"
+  }
+# username and password required
+  proxy_info2 = {
+    "http": "http://username:password@your_proxy_address:your_proxy_port",
+    "https": "https://username:password@your_proxy_address:your_proxy_port"
+  }
+```
+
+If a proxy URL is needed, then it will be included as an argument in every function used. The parameter name and an example is shown below:
+
+```python
+rs.list_signals(access_token, proxy_dict=proxy_info)
+```
+
 <br>
 
 ## * Signal ID Specific *
