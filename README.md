@@ -320,10 +320,10 @@ rs.auto_discover(access_token, geo_grain, date_grain, filename=None, df=None, cr
 
 ### Available Features List
 
-Using your ```access_token```, you can view all the features and an overview of their data that can be used with the feature specific functions.
+Using your ```access_token``` and the country name of the bank, ```bank_name```, you can view all the features and an overview of their data that can be used with the feature specific functions.
 
 ```python
-rs.get_features_list(access_token)
+rs.get_features_list(access_token, bank_name)
 ```
 #### Example Output
 
@@ -354,12 +354,12 @@ rs.get_features_list(access_token)
 
 ### Show Feature(s) Data
 
-Using your ```access_token``` and a ```feature``` list containing the feature id(s), see an overview of the data for those specific features. <br/>
+Using your ```access_token```, the country name of the bank (```bank_name```), and a ```feature``` list containing the feature id(s), see an overview of the data for those specific features. <br/>
 *Reminder: Regardless of the number of features (1 or many), they must be in a list.*
 
 ```python
-feature = [317, 318]
-rs.show_feature(access_token, feature)
+feat_list = [317, 318]
+rs.show_feature(access_token, bank_name, feat_list)
 ```
 
 #### Example Output
@@ -389,12 +389,11 @@ rs.show_feature(access_token, feature)
 
 ### Show Feature(s) Detailed Data
 
-Using your ```access_token``` and a ```feature``` list containing the feature id(s), see in depth data for those specific features. <br/>
-*Reminder: Regardless of the number of features (1 or many), they must be in a list.*
+Using your ```access_token```, the country name of the bank (```bank_name```), and a ```feature``` list containing the feature id(s), see in depth data for those specific features.
 
 ```python
 feat_list = [317]
-rs.show_feature_detailed(access_token, feat_list)
+rs.show_feature_detailed(access_token, bank_name, feat_list)
 ```
 
 #### Example Output
@@ -461,7 +460,7 @@ There are two different ways to receive your feature(s) data:
 * JSON
 * Pandas DataFrame
 
-You will need your ```access_token```,```feature``` list of feature ids along with a ```start_date``` and ```end_date``` indicating the date range of the features. <br/>
+You will need your ```access_token```, the country name of the bank (```bank_name```), ```feature``` list of feature ids along with a ```start_date``` and ```end_date``` indicating the date range of the features. <br/>
 *Reminder: Regardless of the number of features (1 or many), they must be in a list.* <br/>
 *Reminder: ```start_date``` and ```end_date``` must be in the format of 'YYY-MM-DD'.*
 
@@ -469,10 +468,10 @@ You will need your ```access_token```,```feature``` list of feature ids along wi
 ### JSON
 ```python
 # get feature data as json
-feature = [317]
+feat_list = [317]
 start_date = '2021-01-01'
 end_date = '2021-12-31'
-rs.get_feature_data(access_token, feature, start_date, end_date)
+rs.get_feature_data(access_token, bank_name, feat_list, start_date, end_date)
 ```
 #### Example Output
 ```python
@@ -501,8 +500,7 @@ rs.get_feature_data(access_token, feature, start_date, end_date)
 ### Pandas DataFrame
 ```python
 # get feature data as Pandas DataFrame
-feature = [317]
-rs.get_feature_data_pandas(access_token, feature, start_date, end_date)
+rs.get_feature_data_pandas(access_token, bank_name, feat_list, start_date, end_date)
 ```
 #### Example
 ```text
